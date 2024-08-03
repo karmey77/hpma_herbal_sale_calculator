@@ -5,6 +5,8 @@ let retryCount = 0;
 // 將 loadPlantData 移動到 DOMContentLoaded 事件中
 document.addEventListener('DOMContentLoaded', function() {
     loadPlantData();
+    document.getElementById('plantCount').addEventListener('change', updatePlantSelections);
+    updatePlantSelections(); // 添加這行
 });
 
 function showLoading() {
@@ -71,7 +73,10 @@ function initializePlantSelections() {
     for (let i = 0; i < plantCount; i++) {
         const select = document.getElementById(`plant${i}`);
         if (select) {
-            select.addEventListener('change', updatePlantOptions);
+            select.addEventListener('change', function() {
+                updatePlantOptions();
+                updatePlantQuantities(i);
+            });
         }
     }
 }
@@ -135,23 +140,23 @@ function updatePlantSelections() {
         select.name = `plant${i}`;
 
         // 添加事件監聽器
-        select.addEventListener('change', updatePlantOptions);
+        select.addEventListener('change', function() {
+            updatePlantOptions();
+            updatePlantQuantities(i);
+        });
 
         plantDiv.appendChild(label);
         plantDiv.appendChild(select);
+
+        // 添加數量輸入區域
+        const quantitiesDiv = document.createElement('div');
+        quantitiesDiv.id = `quantities${i}`;
+        plantDiv.appendChild(quantitiesDiv);
+
         plantSelectionsDiv.appendChild(plantDiv);
     }
 
     updatePlantOptions();
-
-    // 强制重绘选择框
-    for (let i = 0; i < plantCount; i++) {
-        const select = document.getElementById(`plant${i}`);
-        select.style.display = 'none';
-        setTimeout(() => {
-            select.style.display = '';
-        }, 0);
-    }
 }
 
 function updatePlantOptions() {
