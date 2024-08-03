@@ -303,8 +303,13 @@ button:hover {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .loading p {
@@ -364,6 +369,7 @@ select:empty {
     .main-content {
         padding: 10px;
     }
+
     .container {
         padding: 15px;
     }
@@ -440,11 +446,14 @@ select:empty {
 }
 
 @keyframes breathing {
-    0%, 100% { 
+
+    0%,
+    100% {
         transform: scale(0.9);
         opacity: 0.5;
     }
-    50% { 
+
+    50% {
         transform: scale(1.1);
         opacity: 0.9;
     }
@@ -468,4 +477,27 @@ select:empty {
 
 .author a:hover {
     color: #c0392b;
+}
+
+.nav-tabs {
+    margin-bottom: 20px;
+}
+
+.nav-tabs .nav-link {
+    color: #4592af;
+}
+
+.nav-tabs .nav-link.active {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+#sell,
+#plan {
+    padding: 20px;
+}
+
+#result,
+#planResult {
+    margin-top: 20px;
 }
