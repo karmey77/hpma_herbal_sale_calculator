@@ -9,27 +9,28 @@ let retryCount = 0;
 
 document.addEventListener('DOMContentLoaded', function () {
     loadPlantData();
-    document.getElementById('plantCount').addEventListener('change', function(e) {
+    document.getElementById('plantCount').addEventListener('change', function (e) {
         sharedValues.plantCount = parseInt(e.target.value);
         updatePlantSelections();
     });
-    document.getElementById('planPlantCount').addEventListener('change', function(e) {
+    document.getElementById('planPlantCount').addEventListener('change', function (e) {
         sharedValues.plantCount = parseInt(e.target.value);
         updatePlanPlantSelections();
     });
-    document.getElementById('priceIncrease').addEventListener('change', function(e) {
+    document.getElementById('priceIncrease').addEventListener('change', function (e) {
         sharedValues.priceIncrease = parseInt(e.target.value);
     });
-    document.getElementById('planPriceIncrease').addEventListener('change', function(e) {
+    document.getElementById('planPriceIncrease').addEventListener('change', function (e) {
         sharedValues.priceIncrease = parseInt(e.target.value);
     });
-    document.getElementById('totalBudget').addEventListener('change', function(e) {
+    document.getElementById('totalBudget').addEventListener('change', function (e) {
         sharedValues.totalBudget = parseInt(e.target.value);
     });
-    document.getElementById('planTotalBudget').addEventListener('change', function(e) {
+    document.getElementById('planTotalBudget').addEventListener('change', function (e) {
         sharedValues.totalBudget = parseInt(e.target.value);
     });
     document.getElementById('calculatorTabs').addEventListener('shown.bs.tab', function (e) {
+        clearInactiveResults();
         const currentTab = e.target.id.split('-')[0];
         if (currentTab === 'sell') {
             document.getElementById('plantCount').value = sharedValues.plantCount;
@@ -103,4 +104,13 @@ function initializePage() {
 
 function formatCurrency(amount) {
     return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function clearInactiveResults() {
+    const activeTab = document.querySelector('.tab-pane.active');
+    if (activeTab.id === 'sell') {
+        document.getElementById('planResult').innerHTML = '';
+    } else if (activeTab.id === 'plan') {
+        document.getElementById('result').innerHTML = '';
+    }
 }

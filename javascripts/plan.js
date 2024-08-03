@@ -79,7 +79,6 @@ function updatePlanPlantOptions() {
     }
 }
 
-
 function calculatePlan() {
     showLoading();
     setTimeout(() => {
@@ -95,16 +94,16 @@ function calculatePlan() {
                     const plantData = window.plantData[plantName];
                     plants.push({
                         name: plantName,
-                        qualities: Object.entries(plantData.colors)
-                            .filter(([_, data]) => data.gold_coins)
-                            .map(([color, data]) => ({
-                                color,
-                                price: Math.floor(data.gold_coins * priceIncrease)
-                            }))
-                            .sort((a, b) => b.price - a.price) // Sort by price descending
+                        qualities: ['gold', 'purple', 'blue'].map(color => ({
+                            color,
+                            price: Math.floor((plantData.colors[color]?.gold_coins || 0) * priceIncrease)
+                        })).filter(q => q.price > 0).sort((a, b) => b.price - a.price)
                     });
                 }
             }
+
+            // 按照最高品質價格對植物進行排序
+            plants.sort((a, b) => b.qualities[0].price - a.qualities[0].price);
 
             const result = findBestPlantingPlan(totalBudget, plants);
             console.log('Calculation result:', result);
@@ -122,45 +121,28 @@ function calculatePlan() {
 function findBestPlantingPlan(budget, plants) {
     let bestPlan = [];
     let maxRevenue = 0;
+    let minQuantity = Infinity;
 
-    function generatePlans(index, remainingBudget, currentPlan, currentRevenue) {
+    function generatePlans(index, remainingBudget, currentPlan, currentQuantity) {
         if (index === plants.length || Date.now() - startTime > 9500) {
-            if (currentRevenue > maxRevenue) {
+            const currentRevenue = currentPlan.reduce((sum, item) => sum + item.quantity * item.price, 0);
+            if (currentRevenue > maxRevenue || (currentRevenue === maxRevenue && currentQuantity < minQuantity)) {
                 maxRevenue = currentRevenue;
+                minQuantity = currentQuantity;
                 bestPlan = [...currentPlan];
             }
             return;
         }
 
         const plant = plants[index];
-        // 優先考慮金色品質
         for (const quality of plant.qualities) {
-            if (quality.color === 'gold') {
-                const maxQuantity = Math.floor(remainingBudget / quality.price);
-                for (let quantity = maxQuantity; quantity >= 0; quantity--) {
-                    const cost = quantity * quality.price;
-                    currentPlan.push({ name: plant.name, quality: quality.color, quantity, price: quality.price });
-                    generatePlans(index + 1, remainingBudget - cost, currentPlan, currentRevenue + cost);
-                    currentPlan.pop();
-                    if (quantity % 10 === 0) break; // 每10次迭代檢查一次時間
-                }
-                break; // 處理完金色後，不再處理其他顏色
-            }
-        }
-
-        // 如果沒有金色或金色處理完後還有預算，再處理其他顏色
-        if (remainingBudget > 0) {
-            for (const quality of plant.qualities) {
-                if (quality.color !== 'gold') {
-                    const maxQuantity = Math.floor(remainingBudget / quality.price);
-                    for (let quantity = maxQuantity; quantity >= 0; quantity--) {
-                        const cost = quantity * quality.price;
-                        currentPlan.push({ name: plant.name, quality: quality.color, quantity, price: quality.price });
-                        generatePlans(index + 1, remainingBudget - cost, currentPlan, currentRevenue + cost);
-                        currentPlan.pop();
-                        if (quantity % 10 === 0) break; // 每10次迭代檢查一次時間
-                    }
-                }
+            const maxQuantity = Math.floor(remainingBudget / quality.price);
+            for (let quantity = maxQuantity; quantity >= 0; quantity--) {
+                const cost = quantity * quality.price;
+                currentPlan.push({ name: plant.name, quality: quality.color, quantity, price: quality.price });
+                generatePlans(index + 1, remainingBudget - cost, currentPlan, currentQuantity + quantity);
+                currentPlan.pop();
+                if (quantity === 0) break;
             }
         }
     }
@@ -181,37 +163,52 @@ function displayPlanResult(result, totalBudget) {
     const qualityEmojis = {
         'gold': '💛',
         'purple': '💜',
-        'blue': '💙',
-        'white': '🤍'
+        'blue': '💙'
     };
 
     let totalRevenue = 0;
+    let plantNames = [...new Set(result.plan.map(item => item.name))];
 
-    for (const item of result.plan) {
-        if (item.quantity > 0) {
-            const subtotal = item.quantity * item.price;
+    for (const plantName of plantNames) {
+        const plantData = window.plantData[plantName];
+        resultHTML += `
+        <div class="result-item">
+            <table class="result-table">
+                <tr>
+                    <th colspan="4" class="plant-name">${plantName}</th>
+                </tr>
+                <tr>
+                    <th>品質</th>
+                    <th>數量</th>
+                    <th>單價</th>
+                    <th>小計</th>
+                </tr>`;
+
+        let plantTotal = 0;
+        for (const quality of ['gold', 'purple', 'blue']) {
+            const item = result.plan.find(i => i.name === plantName && i.quality === quality);
+            const quantity = item ? item.quantity : 0;
+            const price = Math.floor((plantData.colors[quality]?.gold_coins || 0) * (sharedValues.priceIncrease / 100 + 1));
+            const subtotal = quantity * price;
+            plantTotal += subtotal;
             totalRevenue += subtotal;
+
             resultHTML += `
-            <div class="result-item">
-                <table class="result-table">
-                    <tr>
-                        <th colspan="4" class="plant-name">${item.name}</th>
-                    </tr>
-                    <tr>
-                        <th>品質</th>
-                        <th>數量</th>
-                        <th>單價</th>
-                        <th>小計</th>
-                    </tr>
-                    <tr>
-                        <td>${qualityEmojis[item.quality] || ''}</td>
-                        <td>${item.quantity}</td>
-                        <td class="currency">${formatCurrency(item.price)}</td>
-                        <td class="currency">${formatCurrency(subtotal)}</td>
-                    </tr>
-                </table>
-            </div>`;
+                <tr>
+                    <td>${qualityEmojis[quality]}</td>
+                    <td>${quantity}</td>
+                    <td class="currency">${formatCurrency(price)}</td>
+                    <td class="currency">${formatCurrency(subtotal)}</td>
+                </tr>`;
         }
+
+        resultHTML += `
+                <tr class="plant-total">
+                    <td colspan="3">總計</td>
+                    <td class="currency">${formatCurrency(plantTotal)} 金幣</td>
+                </tr>
+            </table>
+        </div>`;
     }
 
     resultHTML += `
@@ -225,7 +222,7 @@ function displayPlanResult(result, totalBudget) {
     resultDiv.innerHTML = resultHTML;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('planCalculateButton').addEventListener('click', calculatePlan);
     updatePlanPlantSelections();
 });

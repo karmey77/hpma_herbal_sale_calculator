@@ -245,16 +245,25 @@ button:hover {
     margin-top: 10px;
 }
 
-.result-table th,
-.result-table td {
-    border: 1px solid #ccc;
+.result-table th, .result-table td {
+    border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
 
 .result-table th {
     background-color: #f0f0f0;
     font-weight: bold;
+}
+
+.plant-name {
+    background-color: #e6f3ff;
+    font-weight: bold;
+}
+
+.plant-total {
+    font-weight: bold;
+    background-color: #f9f9f9;
 }
 
 .result-table .plant-name {
@@ -266,6 +275,10 @@ button:hover {
 .result-table .plant-total {
     font-weight: bold;
     background-color: #e6d8c3;
+}
+
+.currency {
+    text-align: right;
 }
 
 /* 結果摘要樣式 */
