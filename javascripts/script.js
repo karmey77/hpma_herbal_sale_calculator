@@ -39,37 +39,37 @@ function initializePage() {
     }, 100);
 }
 
-function fillRandomData() {
-    // 隨機選擇植物數量
-    const plantCount = Math.floor(Math.random() * 3) + 1;
-    document.getElementById('plantCount').value = plantCount;
-    updatePlantSelections();
+// function fillRandomData() {
+//     // 隨機選擇植物數量
+//     const plantCount = Math.floor(Math.random() * 3) + 1;
+//     document.getElementById('plantCount').value = plantCount;
+//     updatePlantSelections();
 
-    // 隨機選擇加價幅度
-    const priceIncreaseOptions = [100, 200, 300];
-    const priceIncrease = priceIncreaseOptions[Math.floor(Math.random() * priceIncreaseOptions.length)];
-    document.getElementById('priceIncrease').value = priceIncrease;
+//     // 隨機選擇加價幅度
+//     const priceIncreaseOptions = [100, 200, 300];
+//     const priceIncrease = priceIncreaseOptions[Math.floor(Math.random() * priceIncreaseOptions.length)];
+//     document.getElementById('priceIncrease').value = priceIncrease;
 
-    // 隨機設置預算
-    // const budget = Math.floor(Math.random() * 50000) + 5000;
-    // document.getElementById('totalBudget').value = budget;
+//     // 隨機設置預算
+//     // const budget = Math.floor(Math.random() * 50000) + 5000;
+//     // document.getElementById('totalBudget').value = budget;
 
-    // 為每個植物隨機填充數據
-    for (let i = 0; i < plantCount; i++) {
-        const plantSelect = document.getElementById(`plant${i}`);
-        const plantOptions = Array.from(plantSelect.options).slice(1);
-        const randomPlant = plantOptions[Math.floor(Math.random() * plantOptions.length)];
-        plantSelect.value = randomPlant.value;
-        plantSelect.dispatchEvent(new Event('change'));
+//     // 為每個植物隨機填充數據
+//     for (let i = 0; i < plantCount; i++) {
+//         const plantSelect = document.getElementById(`plant${i}`);
+//         const plantOptions = Array.from(plantSelect.options).slice(1);
+//         const randomPlant = plantOptions[Math.floor(Math.random() * plantOptions.length)];
+//         plantSelect.value = randomPlant.value;
+//         plantSelect.dispatchEvent(new Event('change'));
 
-        for (const color of ['gold', 'purple', 'blue', 'white', 'special']) {
-            const input = document.getElementById(`${color}${i}`);
-            if (input) {
-                input.value = Math.floor(Math.random() * 50);
-            }
-        }
-    }
-}
+//         for (const color of ['gold', 'purple', 'blue', 'white', 'special']) {
+//             const input = document.getElementById(`${color}${i}`);
+//             if (input) {
+//                 input.value = Math.floor(Math.random() * 50);
+//             }
+//         }
+//     }
+// }
 
 // Call loadPlantData when the script loads
 loadPlantData();
