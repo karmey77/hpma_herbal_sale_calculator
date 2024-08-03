@@ -1,0 +1,543 @@
+{
+    "魚鰓草": {
+        "type": "水生",
+        "colors": {
+            "gold": {
+                "gold_coins": 6,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 4,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 3,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": [
+        ]
+    },
+    "綠菊": {
+        "type": "水生",
+        "colors": {
+            "gold": {
+                "gold_coins": 107,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 87,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 69,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": [
+
+            "黃綠色",
+            "橙色",
+            "紅色"
+        ]
+    },
+    "巨藻": {
+        "type": "水生",
+        "colors": {
+            "gold": {
+                "gold_coins": 48,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 44,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 30,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": [
+            "黃綠色",
+            "青色"
+        ]
+    },
+    "紅火焰藻": {
+        "type": "水生",
+        "colors": {
+            "gold": {
+                "gold_coins": null,
+                "gems": 3
+            },
+            "purple": {
+                "gold_coins": null,
+                "gems": 2
+            },
+            "blue": {
+                "gold_coins": null,
+                "gems": 1
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": [
+            "紅色"
+        ]
+    },
+    "紅波水草": {
+        "type": "水生",
+        "colors": {
+            "gold": {
+                "gold_coins": 120,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 98,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 78,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": [
+            "黃色"
+        ]
+    },
+    "鳳眼蓮": {
+        "type": "水生",
+        "colors": {
+            "gold": {
+                "gold_coins": 65,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 52,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 41,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "菱葉丁香蓼": {
+        "type": "水生",
+        "colors": {
+            "gold": {
+                "gold_coins": 80,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 65,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 52,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "睡蓮": {
+        "type": "水生",
+        "colors": {
+            "gold": {
+                "gold_coins": 271,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 221,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 199,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "毒牙天竺葵": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 12,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 9,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 8,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "玫瑰": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 42,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 34,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 30,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "三色堇": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 85,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 62,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 55,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "膨豆莢": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 85,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 62,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 55,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "嗅幻草": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": null,
+                "gems": 6
+            },
+            "purple": {
+                "gold_coins": null,
+                "gems": 3
+            },
+            "blue": {
+                "gold_coins": null,
+                "gems": 1
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "羽衣草": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 105,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 96,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 76,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "魔蘋果": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 24,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 22,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 15,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "中國咬人甘藍": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 57,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 40,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 36,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "牡丹": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": null,
+                "gems": 2
+            },
+            "purple": {
+                "gold_coins": 58,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 45,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "秋海棠": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 72,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 58,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 45,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "五月花": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 186,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 150,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 117,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "繡球花": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 215,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 150,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 135,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "水仙花": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": null,
+                "gems": 2
+            },
+            "purple": {
+                "gold_coins": 50,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 45,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "鈴蘭": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 57,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 46,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 42,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "向日葵": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "惡人掌": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    }
+}

@@ -1,0 +1,408 @@
+/* 全局樣式 */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'JF Open Huninn', 'Noto Sans TC', Arial, sans-serif;
+    background: #f0e6d2 url('./../bg.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 頁首和頁尾樣式 */
+header,
+footer {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    padding: 10px 0;
+}
+
+footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 10px 0;
+}
+
+/* 導航欄樣式 */
+.navbar {
+    padding: 0.2rem 1rem;
+}
+
+.navbar-brand {
+    font-size: small;
+    color: #4592af;
+}
+
+.navbar .navbar-brand:hover {
+    color: #c0392b;
+}
+
+/* 作者和來源信息樣式 */
+.author,
+.source {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #3a3a3a;
+    margin-bottom: 0.2rem;
+}
+
+.author {
+    padding-top: 1rem;
+}
+
+.source {
+    font-size: 0.7rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+/* 社交媒體鏈接樣式 */
+.social-media {
+    text-align: right;
+}
+
+.social-media-link {
+    color: #999999;
+    text-decoration: none;
+    margin: 0 3px;
+}
+
+.social-media-link:hover {
+    color: #ff6600;
+}
+
+/* 容器樣式 */
+.container-fluid {
+    max-width: 100%;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 1rem auto;
+}
+
+/* YouTube 嵌入樣式 */
+.youtube-embed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    width: 100%;
+    margin-left: 1rem;
+}
+
+/* 主要內容區域樣式 */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+/* 標題樣式 */
+h1 {
+    color: #7b0c0c;
+    text-align: center;
+    font-size: large;
+}
+
+/* 輸入行樣式 */
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-group {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.input-group:last-child {
+    margin-right: 0;
+}
+
+/* 標籤樣式 */
+label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #4a4a4a;
+    font-size: small;
+}
+
+/* 選擇框和輸入框樣式 */
+select,
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 按鈕樣式 */
+button {
+    background-color: #7b0c0c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #5a090980;
+}
+
+/* 植物選擇區域樣式 */
+.plant-selection {
+    margin: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 品質行樣式 */
+.quality-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quality-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quality-input label {
+    margin-bottom: 5px;
+}
+
+/* 品質表格樣式 */
+.quality-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.quality-table th,
+.quality-table td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+}
+
+.quality-table th {
+    background-color: #f0f0f080;
+}
+
+/* 結果區域樣式 */
+#result {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 5px;
+}
+
+.result-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.result-item {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* 結果表格樣式 */
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.result-table th,
+.result-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.result-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.result-table .plant-name {
+    font-weight: bold;
+    color: #7b0c0c;
+    background-color: #f9f5eb;
+}
+
+.result-table .plant-total {
+    font-weight: bold;
+    background-color: #e6d8c3;
+}
+
+/* 結果摘要樣式 */
+.result-summary {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e6d8c3;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 加載動畫樣式 */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: white;
+    margin-top: 10px;
+}
+
+/* 選擇框樣式 */
+select optgroup {
+    font-weight: bold;
+}
+
+select optgroup option {
+    font-weight: normal;
+}
+
+select optgroup[label="水生植物"] {
+    background-color: #e6f3ff;
+}
+
+select optgroup[label="陸生植物"] {
+    background-color: #fff0e6;
+}
+
+select {
+    transition: opacity 0.2s ease-in-out;
+}
+
+select:not(:empty) {
+    opacity: 1;
+}
+
+select:empty {
+    opacity: 0;
+}
+
+/* 貨幣樣式 */
+.currency {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.result-summary .currency {
+    font-size: 1.2em;
+    color: #28a745;
+}
+
+/* 免責聲明樣式 */
+.no-blame {
+    font-size: .01rem;
+    color: grey;
+    text-align: center;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 10px;
+    }
+    .container {
+        padding: 15px;
+    }
+}
+
+/* 植物選擇區域樣式 */
+.plant-selection {
+    margin: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: box-shadow 0.3s ease;
+}
+
+.plant-selection:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.plant-selection:not(:last-child) {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.plant-selection:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ccc, transparent);
+}
+
+/* 植物選擇標題樣式 */
+.plant-selection label {
+    font-size: 1.1em;
+    color: #7b0c0c;
+    margin-bottom: 10px;
+    display: block;
+}

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魔法覺醒植物高價收購計算器</title>
+    <link rel="stylesheet" href="stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'JF Open Huninn';
+            src: url('stylesheets/jf-openhuninn-2.0.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/d409d56ba2.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="color:#4592af;" href="#">
+                    <img src="./avatar.jpg" width="15" height="15" style="margin-bottom: .2rem;"
+                        class="d-inline-block align-center">
+                    植物高價收購計算器
+                </a>
+                <div class="social-media">
+                    <a href="https://www.youtube.com/channel/UC2ZDr0GakihR6IA-UHU5Iww?sub_confirmation=1"
+                        target="_blank" class="social-media-link">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://twitch.tv/odessa_thefrogking" target="_blank" class="social-media-link">
+                        <i class="fa-brands fa-twitch"></i>
+                    </a>
+                    <a href="https://instagram.com/odessa_thefrogking" target="_blank" class="social-media-link">
+                        <i class="fa-brands fa-instagram fa-lg"></i>
+                    </a>
+                    <a href="https://discord.gg/Fzbj9KfpXR" target="_blank" class="social-media-link">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main-content">
+        <div class="container">
+            <h1>魔法覺醒<br>植物高價收購計算器</h1>
+            <h1>HPMA Plant Sales Optimizer</h1>
+            <hr>
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="plantCount">高價收購<br>Plant Types</label>
+                    <select id="plantCount">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="priceIncrease">加價<br>Increase</label>
+                    <select id="priceIncrease">
+                        <option value="0">0%</option>
+                        <option value="100">100%</option>
+                        <option value="200">200%</option>
+                        <option value="300" selected>300%</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="totalBudget">剩餘預算<br>Budget</label>
+                    <input type="number" id="totalBudget" value="10000">
+                </div>
+            </div>
+            <hr>
+
+            <div id="plantSelections"></div>
+
+            <button id="testButton">隨機填充測試數據</button>
+            <button id="calculateButton">計算最佳組合 Calculate</button>
+
+            <div id="result"></div>
+            <p class="author">Made by Odessa the Frog King</p>
+            <p class="source">Information Summarized by <a
+                    href="https://forum.gamer.com.tw/C.php?bsn=37531&snA=7472&tnum=1" target="_blank">GeniusGuo</a></p>
+        </div>
+    </div>
+
+    <div id="loading" class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>計算中，請稍候......</p>
+        <p>Calculating, please wait......</p>
+    </div>
+
+    <footer>
+        <div class="container-fluid">
+            <p>子民的訂閱，就是國王持續創作的動力</p>
+            <p>Subscribe to my YT channel!</p>
+            <div class="youtube-embed">
+                <iframe
+                    src="https://www.youtube.com/subscribe_embed?usegapi=1&channelid=UC2ZDr0GakihR6IA-UHU5Iww&layout=full&count=default&origin=file%3A%2F%2F&gsrc=3p&ic=1&jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.zh_TW.bluFgl9RzNg.O%2Fd%3D1%2Frs%3DAHpOoo-Qvg0Vpu8ByrHTqzOHkWIJNSq9Og%2Fm%3D__features__#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conload&id=I0_1697187806341&_gfid=I0_1697187806341&parent=file%3A%2F%2F&pfname=&rpctoken=15845621"
+                    frameborder="0" style="padding-left: 3%; width: 100%; max-width: 300px; height: 60px;"></iframe>
+            </div>
+        </div>
+    </footer>
+    <!-- 將 JSON 數據嵌入到這裡 -->
+    <script id="plantData" type="application/json">
+        {
+            "魚鰓草": {
+                "type": "水生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 6,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 4,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 3,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": [
+                ]
+            },
+            "綠菊": {
+                "type": "水生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 107,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 87,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 69,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": [
+        
+                    "黃綠色",
+                    "橙色",
+                    "紅色"
+                ]
+            },
+            "巨藻": {
+                "type": "水生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 48,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 44,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 30,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": [
+                    "黃綠色",
+                    "青色"
+                ]
+            },
+            "紅火焰藻": {
+                "type": "水生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": null,
+                        "gems": 3
+                    },
+                    "purple": {
+                        "gold_coins": null,
+                        "gems": 2
+                    },
+                    "blue": {
+                        "gold_coins": null,
+                        "gems": 1
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": [
+                    "紅色"
+                ]
+            },
+            "紅波水草": {
+                "type": "水生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 120,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 98,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 78,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": [
+                    "黃色"
+                ]
+            },
+            "鳳眼蓮": {
+                "type": "水生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 65,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 52,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 41,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "菱葉丁香蓼": {
+                "type": "水生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 80,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 65,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 52,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "睡蓮": {
+                "type": "水生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 271,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 221,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 199,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "毒牙天竺葵": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 12,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 9,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 8,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "玫瑰": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 42,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 34,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 30,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "三色堇": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 85,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 62,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 55,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "膨豆莢": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 85,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 62,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 55,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "嗅幻草": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": null,
+                        "gems": 6
+                    },
+                    "purple": {
+                        "gold_coins": null,
+                        "gems": 3
+                    },
+                    "blue": {
+                        "gold_coins": null,
+                        "gems": 1
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "羽衣草": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 105,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 96,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 76,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "魔蘋果": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 24,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 22,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 15,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "中國咬人甘藍": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 57,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 40,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 36,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "牡丹": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": null,
+                        "gems": 2
+                    },
+                    "purple": {
+                        "gold_coins": 58,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 45,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "秋海棠": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 72,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 58,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 45,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "五月花": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 186,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 150,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 117,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "繡球花": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 215,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 150,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 135,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "水仙花": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": null,
+                        "gems": 2
+                    },
+                    "purple": {
+                        "gold_coins": 50,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 45,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "鈴蘭": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": 57,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": 46,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": 42,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "向日葵": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": null,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": null,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": null,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            },
+            "惡人掌": {
+                "type": "陸生",
+                "colors": {
+                    "gold": {
+                        "gold_coins": null,
+                        "gems": null
+                    },
+                    "purple": {
+                        "gold_coins": null,
+                        "gems": null
+                    },
+                    "blue": {
+                        "gold_coins": null,
+                        "gems": null
+                    },
+                    "white": {
+                        "gold_coins": 1,
+                        "gems": null
+                    }
+                },
+                "special_colors": []
+            }
+        }
+    </script>
+
+    <script src="./javascripts/script.js"></script>
+</body>
+
+</html>
