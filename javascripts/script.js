@@ -3,7 +3,7 @@ let maxRetries = 5;
 let retryCount = 0;
 
 // 將 loadPlantData 移動到 DOMContentLoaded 事件中
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadPlantData();
     document.getElementById('plantCount').addEventListener('change', updatePlantSelections);
     updatePlantSelections(); // 添加這行
@@ -73,7 +73,7 @@ function initializePlantSelections() {
     for (let i = 0; i < plantCount; i++) {
         const select = document.getElementById(`plant${i}`);
         if (select) {
-            select.addEventListener('change', function() {
+            select.addEventListener('change', function () {
                 updatePlantOptions();
                 updatePlantQuantities(i);
             });
@@ -140,7 +140,7 @@ function updatePlantSelections() {
         select.name = `plant${i}`;
 
         // 添加事件監聽器
-        select.addEventListener('change', function() {
+        select.addEventListener('change', function () {
             updatePlantOptions();
             updatePlantQuantities(i);
         });
@@ -229,14 +229,12 @@ function updatePlantQuantities(index) {
         html += '</tr>';
 
         const qualities = [
-            { emoji: '💛', name: 'gold', label: '' },
-            { emoji: '💜', name: 'purple', label: '' },
-            { emoji: '💙', name: 'blue', label: '' },
-            { emoji: '🤍', name: 'white', label: '' }
+            { emoji: '💛', name: 'gold', label: '金' },
+            { emoji: '💜', name: 'purple', label: '紫' },
+            { emoji: '💙', name: 'blue', label: '藍' }
         ];
-
         for (const quality of qualities) {
-            if (plantData[selectedPlant].colors[quality.name]) {
+            if (plantData[selectedPlant].colors[quality.name] && plantData[selectedPlant].colors[quality.name].gold_coins) {
                 html += `<tr>
                     <td>${quality.emoji} ${quality.label}</td>
                     <td><input type="number" id="${quality.name}${index}" value="0" min="0"></td>`;
@@ -274,17 +272,19 @@ function calculate() {
                     const isAquatic = plantData[plantName].type === "水生";
                     const hasSpecialColors = plantData[plantName].special_colors.length > 0;
 
-                    for (const color of ['gold', 'purple', 'blue', 'white']) {
+                    for (const color of ['gold', 'purple', 'blue']) {
                         const quantity = parseInt(document.getElementById(`${color}${i}`).value) || 0;
                         const basePrice = plantData[plantName].colors[color].gold_coins || 0;
-                        const price = Math.floor(basePrice * priceIncrease);
-                        plant.qualities.push({ color, quantity, price });
+                        if (basePrice > 0) {
+                            const price = Math.floor(basePrice * priceIncrease);
+                            plant.qualities.push({ color, quantity, price });
 
-                        if (isAquatic && hasSpecialColors) {
-                            const specialQuantity = parseInt(document.getElementById(`${color}Special${i}`).value) || 0;
-                            const baseSpecialPrice = basePrice * 1.1; // 10% bonus for special colors
-                            const specialPrice = Math.ceil(baseSpecialPrice * priceIncrease);
-                            plant.qualities.push({ color: `${color}Special`, quantity: specialQuantity, price: specialPrice });
+                            if (isAquatic && hasSpecialColors) {
+                                const specialQuantity = parseInt(document.getElementById(`${color}Special${i}`).value) || 0;
+                                const baseSpecialPrice = basePrice * 1.1; // 10% bonus for special colors
+                                const specialPrice = Math.ceil(baseSpecialPrice * priceIncrease);
+                                plant.qualities.push({ color: `${color}Special`, quantity: specialQuantity, price: specialPrice });
+                            }
                         }
                     }
 
@@ -301,7 +301,7 @@ function calculate() {
             displayResult(result, totalBudget);
         } catch (error) {
             console.error('Calculation error:', error);
-            alert('计算过程中发生错误，请检查输入数据并重试。');
+            alert('計算中出現錯誤，請確認數據或回報作者。 Error found, check the input again or contact the author.');
         } finally {
             hideLoading();
         }
@@ -420,8 +420,7 @@ function displayResult(result, totalBudget) {
     const qualityEmojis = {
         'gold': '💛',
         'purple': '💜',
-        'blue': '💙',
-        'white': '🤍'
+        'blue': '💙'
     };
 
     let totalRevenue = 0;
@@ -454,7 +453,7 @@ function displayResult(result, totalBudget) {
                 const isSpecial = quality.color.includes('Special');
                 resultHTML += `
                 <tr>
-                    <td>${emoji}${isSpecial ? '特殊顏色' : ''}</td>
+                    <td>${emoji} ${isSpecial ? '特殊色' : ''}</td>
                     <td>${quality.quantity}</td>
                     <td class="currency">${formatCurrency(quality.price)}</td>
                     <td class="currency">${formatCurrency(subtotal)}</td>
