@@ -100,16 +100,16 @@ function updatePlantQuantities(index) {
         const isAquatic = plantData[selectedPlant].type === "水生";
         const hasSpecialColors = plantData[selectedPlant].special_colors.length > 0;
 
-        let html = '<table class="quality-table"><tr><th>品質</th><th>數量</th>';
+        let html = '<table class="quality-table"><tr><th>LV.</th><th>數量</th>';
         if (isAquatic && hasSpecialColors) {
-            html += '<th>特殊顏色數量</th>';
+            html += '<th>特殊色數量</th>';
         }
         html += '</tr>';
 
         const qualities = [
-            { emoji: '💛', name: 'gold', label: '金' },
-            { emoji: '💜', name: 'purple', label: '紫' },
-            { emoji: '💙', name: 'blue', label: '藍' }
+            { emoji: '💛', name: 'gold', label: '' },
+            { emoji: '💜', name: 'purple', label: '' },
+            { emoji: '💙', name: 'blue', label: '' }
         ];
         for (const quality of qualities) {
             if (plantData[selectedPlant].colors[quality.name] && plantData[selectedPlant].colors[quality.name].gold_coins) {

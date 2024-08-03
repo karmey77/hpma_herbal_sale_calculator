@@ -204,7 +204,7 @@ function displayPlanResult(result, totalBudget) {
                         <th>小計</th>
                     </tr>
                     <tr>
-                        <td>${qualityEmojis[item.quality] || ''} ${item.quality}</td>
+                        <td>${qualityEmojis[item.quality] || ''}</td>
                         <td>${item.quantity}</td>
                         <td class="currency">${formatCurrency(item.price)}</td>
                         <td class="currency">${formatCurrency(subtotal)}</td>
