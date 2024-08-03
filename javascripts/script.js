@@ -24,8 +24,9 @@ function loadPlantData() {
 function initializePage() {
     document.getElementById('plantCount').addEventListener('change', updatePlantSelections);
     document.getElementById('calculateButton').addEventListener('click', calculate);
-    document.getElementById('testButton').addEventListener('click', fillRandomData);
+    // document.getElementById('testButton').addEventListener('click', fillRandomData);
     updatePlantSelections();
+    initializePlantSelections();
 
     // 添加一个小延迟来确保分类标签正确显示
     setTimeout(() => {
@@ -37,6 +38,17 @@ function initializePage() {
             }, 0);
         });
     }, 100);
+}
+
+// 添加這個新函數
+function initializePlantSelections() {
+    const plantCount = parseInt(document.getElementById('plantCount').value);
+    for (let i = 0; i < plantCount; i++) {
+        const select = document.getElementById(`plant${i}`);
+        if (select) {
+            select.addEventListener('change', updatePlantOptions);
+        }
+    }
 }
 
 // function fillRandomData() {
@@ -84,54 +96,27 @@ function updatePlantSelections() {
     const plantSelectionsDiv = document.getElementById('plantSelections');
     plantSelectionsDiv.innerHTML = '';
 
-    const selectedPlants = new Set();
-
     for (let i = 0; i < plantCount; i++) {
         const plantDiv = document.createElement('div');
         plantDiv.className = 'plant-selection';
         plantDiv.id = `plantSelection${i}`;
 
+        const label = document.createElement('label');
+        label.htmlFor = `plant${i}`;
+        label.textContent = `高價收購植物 Plant ${i + 1}`;
+
         const select = document.createElement('select');
         select.id = `plant${i}`;
-        select.innerHTML = '<option value="">請選擇植物</option>';
+        select.name = `plant${i}`;
 
-        for (const plant in plantData) {
-            if (!selectedPlants.has(plant)) {
-                const option = document.createElement('option');
-                option.value = plant;
-                option.textContent = plant;
-                select.appendChild(option);
-            }
-        }
-
-        const label = document.createElement('label');
-        label.htmlFor = select.id;
-        label.textContent = `高價收購植物 Plant ${i + 1}：`;
+        // 添加事件監聽器
+        select.addEventListener('change', updatePlantOptions);
 
         plantDiv.appendChild(label);
         plantDiv.appendChild(select);
-
-        const quantitiesDiv = document.createElement('div');
-        quantitiesDiv.className = 'plant-quantities';
-        quantitiesDiv.id = `quantities${i}`;
-        plantDiv.appendChild(quantitiesDiv);
-
         plantSelectionsDiv.appendChild(plantDiv);
-
-        select.addEventListener('change', function () {
-            selectedPlants.clear();
-            for (let j = 0; j < plantCount; j++) {
-                const plantSelect = document.getElementById(`plant${j}`);
-                if (plantSelect.value) {
-                    selectedPlants.add(plantSelect.value);
-                }
-            }
-            updatePlantQuantities(i);
-            updatePlantOptions();
-        });
     }
 
-    // 在这里添加对 updatePlantOptions 的调用
     updatePlantOptions();
 
     // 强制重绘选择框
@@ -150,47 +135,49 @@ function updatePlantOptions() {
 
     for (let i = 0; i < plantCount; i++) {
         const plantSelect = document.getElementById(`plant${i}`);
-        if (plantSelect.value) {
+        if (plantSelect && plantSelect.value) {
             selectedPlants.add(plantSelect.value);
         }
     }
 
     for (let i = 0; i < plantCount; i++) {
         const select = document.getElementById(`plant${i}`);
-        const currentSelection = select.value;
+        if (select) {
+            const currentSelection = select.value;
 
-        select.innerHTML = '<option value="">請選擇植物</option>';
+            select.innerHTML = '<option value="">請選擇植物</option>';
 
-        // 添加水生植物组
-        const aquaticOptgroup = document.createElement('optgroup');
-        aquaticOptgroup.label = '水生植物';
-        for (const [plant, data] of aquaticPlants) {
-            if (!selectedPlants.has(plant) || plant === currentSelection) {
-                const option = document.createElement('option');
-                option.value = plant;
-                option.textContent = plant;
-                option.selected = (plant === currentSelection);
-                aquaticOptgroup.appendChild(option);
+            // 添加水生植物组
+            const aquaticOptgroup = document.createElement('optgroup');
+            aquaticOptgroup.label = '水生植物';
+            for (const [plant, data] of Object.entries(plantData).filter(([_, data]) => data.type === "水生")) {
+                if (!selectedPlants.has(plant) || plant === currentSelection) {
+                    const option = document.createElement('option');
+                    option.value = plant;
+                    option.textContent = plant;
+                    option.selected = (plant === currentSelection);
+                    aquaticOptgroup.appendChild(option);
+                }
             }
-        }
-        if (aquaticOptgroup.children.length > 0) {
-            select.appendChild(aquaticOptgroup);
-        }
-
-        // 添加陆生植物组
-        const terrestrialOptgroup = document.createElement('optgroup');
-        terrestrialOptgroup.label = '陸生植物';
-        for (const [plant, data] of terrestrialPlants) {
-            if (!selectedPlants.has(plant) || plant === currentSelection) {
-                const option = document.createElement('option');
-                option.value = plant;
-                option.textContent = plant;
-                option.selected = (plant === currentSelection);
-                terrestrialOptgroup.appendChild(option);
+            if (aquaticOptgroup.children.length > 0) {
+                select.appendChild(aquaticOptgroup);
             }
-        }
-        if (terrestrialOptgroup.children.length > 0) {
-            select.appendChild(terrestrialOptgroup);
+
+            // 添加陆生植物组
+            const terrestrialOptgroup = document.createElement('optgroup');
+            terrestrialOptgroup.label = '陸生植物';
+            for (const [plant, data] of Object.entries(plantData).filter(([_, data]) => data.type === "陸生")) {
+                if (!selectedPlants.has(plant) || plant === currentSelection) {
+                    const option = document.createElement('option');
+                    option.value = plant;
+                    option.textContent = plant;
+                    option.selected = (plant === currentSelection);
+                    terrestrialOptgroup.appendChild(option);
+                }
+            }
+            if (terrestrialOptgroup.children.length > 0) {
+                select.appendChild(terrestrialOptgroup);
+            }
         }
     }
 }
