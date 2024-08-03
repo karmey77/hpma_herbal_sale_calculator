@@ -1,4 +1,11 @@
 let plantData;
+let maxRetries = 5;
+let retryCount = 0;
+
+// 將 loadPlantData 移動到 DOMContentLoaded 事件中
+document.addEventListener('DOMContentLoaded', function() {
+    loadPlantData();
+});
 
 function showLoading() {
     document.getElementById('loading').style.display = 'flex';
@@ -8,23 +15,41 @@ function hideLoading() {
     document.getElementById('loading').style.display = 'none';
 }
 
-// Load plant data from embedded JSON
 function loadPlantData() {
     const plantDataScript = document.getElementById('plantData');
-    plantData = JSON.parse(plantDataScript.textContent);
-    console.log('Plant data loaded:', Object.keys(plantData));
+    if (plantDataScript) {
+        try {
+            plantData = JSON.parse(plantDataScript.textContent);
+            console.log('Plant data loaded:', Object.keys(plantData));
+            initializePage();
+        } catch (error) {
+            console.error('Error parsing plant data:', error);
+            retryLoadPlantData();
+        }
+    } else {
+        console.error('Plant data script not found');
+        retryLoadPlantData();
+    }
+}
 
-    // 将植物分类
-    aquaticPlants = Object.entries(plantData).filter(([_, plant]) => plant.type === "水生");
-    terrestrialPlants = Object.entries(plantData).filter(([_, plant]) => plant.type === "陸生");
-
-    initializePage();
+function retryLoadPlantData() {
+    if (retryCount < maxRetries) {
+        retryCount++;
+        console.log(`Retrying to load plant data (${retryCount}/${maxRetries})...`);
+        setTimeout(loadPlantData, 1000);
+    } else {
+        console.error('Failed to load plant data after multiple attempts');
+    }
 }
 
 function initializePage() {
+    if (!plantData) {
+        console.error('Plant data not loaded yet');
+        return;
+    }
+
     document.getElementById('plantCount').addEventListener('change', updatePlantSelections);
     document.getElementById('calculateButton').addEventListener('click', calculate);
-    // document.getElementById('testButton').addEventListener('click', fillRandomData);
     updatePlantSelections();
     initializePlantSelections();
 
