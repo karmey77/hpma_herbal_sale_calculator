@@ -31,7 +31,7 @@
                 <a class="navbar-brand" style="color:#4592af;" href="#">
                     <img src="./avatar.jpg" width="15" height="15" style="margin-bottom: .2rem;"
                         class="d-inline-block align-center">
-                    植物高價收購計算器
+                    植物收購計算器
                 </a>
                 <div class="social-media">
                     <a href="https://www.youtube.com/channel/UC2ZDr0GakihR6IA-UHU5Iww?sub_confirmation=1"
@@ -53,20 +53,20 @@
     </header>
     <div class="main-content">
         <div class="container">
-            <h1>魔法覺醒<br>植物高價收購計算器</h1>
+            <h1>魔法覺醒<br>植物收購計算器</h1>
             <h1>HPMA Plant Sales Optimizer</h1>
             <hr>
             <ul class="nav nav-tabs" id="calculatorTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="sell-tab" data-bs-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">賣出我的植物</a>
+                    <a class="nav-link active" id="sell-tab" data-bs-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="true">用庫存計算</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="plan-tab" data-bs-toggle="tab" href="#plan" role="tab" aria-controls="plan" aria-selected="false">最佳種植計劃</a>
+                    <a class="nav-link" id="plan-tab" data-bs-toggle="tab" href="#plan" role="tab" aria-controls="plan" aria-selected="false">植物販售計畫</a>
                 </li>
             </ul>
             <div class="tab-content" id="calculatorTabContent">
                 <div class="tab-pane fade show active" id="sell" role="tabpanel" aria-labelledby="sell-tab">
-                    <h1>我該怎麼【賣】，讓我賺最多錢？</h1>
+                    <h1>我該怎麼【賣我有的】，讓我賺最多錢？</h1>
                     <div class="input-row">
                         <div class="input-group">
                             <label for="plantCount">高價收購<br>Plant Types</label>
@@ -79,6 +79,7 @@
                         <div class="input-group">
                             <label for="priceIncrease">加價<br>Increase</label>
                             <select id="priceIncrease">
+                                <option value="0">0% (1x)</option>
                                 <option value="100">100% (2x)</option>
                                 <option value="200">200% (3x)</option>
                                 <option value="300" selected>300% (4x)</option>
@@ -86,16 +87,16 @@
                         </div>
                         <div class="input-group">
                             <label for="totalBudget">剩餘預算<br>Budget</label>
-                            <input type="number" id="totalBudget" value="10000">
+                            <input type="number" id="totalBudget" value="500">
                         </div>
                     </div>
                     <hr>
                     <div id="plantSelections"></div>
-                    <button id="calculateButton">計算最佳組合 Calculate</button>
+                    <button id="calculateButton">計算 Calculate</button>
                     <div id="result"></div>
                 </div>
                 <div class="tab-pane fade" id="plan" role="tabpanel" aria-labelledby="plan-tab">
-                    <h1>我該怎麼【種】，讓我賺最多錢？</h1>
+                    <h1>不管數量，我該怎麼【賣】，讓我賺最多錢？</h1>
                     <div class="input-row">
                         <div class="input-group">
                             <label for="planPlantCount">高價收購<br>Plant Types</label>
@@ -108,6 +109,7 @@
                         <div class="input-group">
                             <label for="planPriceIncrease">加價<br>Increase</label>
                             <select id="planPriceIncrease">
+                                <option value="0">0% (1x)</option>
                                 <option value="100">100% (2x)</option>
                                 <option value="200">200% (3x)</option>
                                 <option value="300" selected>300% (4x)</option>
@@ -120,7 +122,7 @@
                     </div>
                     <hr>
                     <div id="planPlantSelections"></div>
-                    <button id="planCalculateButton">計算最佳種植計劃 Calculate</button>
+                    <button id="planCalculateButton">計算 Calculate</button>
                     <div id="planResult"></div>
                 </div>
             </div>

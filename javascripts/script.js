@@ -2,7 +2,7 @@ let plantData;
 let sharedValues = {
     plantCount: 3,
     priceIncrease: 300,
-    totalBudget: 10000
+    totalBudget: 5000
 };
 let maxRetries = 5;
 let retryCount = 0;
