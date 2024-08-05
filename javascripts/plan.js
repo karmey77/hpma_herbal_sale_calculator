@@ -121,34 +121,46 @@ function calculatePlan() {
 function findBestPlantingPlan(budget, plants) {
     let bestPlan = [];
     let maxRevenue = 0;
-    let minQuantity = Infinity;
 
-    function generatePlans(index, remainingBudget, currentPlan, currentQuantity) {
-        if (index === plants.length || Date.now() - startTime > 9500) {
+    // 创建一个包含所有植物所有品质的扁平数组，并按价格降序排序
+    const allQualities = plants.flatMap(plant => 
+        plant.qualities.map(q => ({...q, name: plant.name}))
+    ).sort((a, b) => b.price - a.price);
+
+    // 找出最低单价
+    const minPrice = Math.min(...allQualities.map(q => q.price));
+
+    function generatePlans(index, remainingBudget, currentPlan) {
+        if (index === allQualities.length || Date.now() - startTime > 9500) {
             const currentRevenue = currentPlan.reduce((sum, item) => sum + item.quantity * item.price, 0);
-            if (currentRevenue > maxRevenue || (currentRevenue === maxRevenue && currentQuantity < minQuantity)) {
+            if (currentRevenue > maxRevenue) {
                 maxRevenue = currentRevenue;
-                minQuantity = currentQuantity;
                 bestPlan = [...currentPlan];
             }
             return;
         }
 
-        const plant = plants[index];
-        for (const quality of plant.qualities) {
-            const maxQuantity = Math.floor(remainingBudget / quality.price);
-            for (let quantity = maxQuantity; quantity >= 0; quantity--) {
-                const cost = quantity * quality.price;
-                currentPlan.push({ name: plant.name, quality: quality.color, quantity, price: quality.price });
-                generatePlans(index + 1, remainingBudget - cost, currentPlan, currentQuantity + quantity);
+        const quality = allQualities[index];
+        const maxQuantity = Math.floor(remainingBudget / quality.price);
+
+        for (let quantity = maxQuantity; quantity >= 0; quantity--) {
+            const cost = quantity * quality.price;
+            if (quantity > 0) {
+                currentPlan.push({ name: quality.name, quality: quality.color, quantity, price: quality.price });
+            }
+            generatePlans(index + 1, remainingBudget - cost, currentPlan);
+            if (quantity > 0) {
                 currentPlan.pop();
-                if (quantity === 0) break;
+            }
+            // 如果剩余预算小于最低单价，直接结束搜索
+            if (remainingBudget - cost < minPrice) {
+                break;
             }
         }
     }
 
     const startTime = Date.now();
-    generatePlans(0, budget, [], 0);
+    generatePlans(0, budget, []);
 
     return {
         plan: bestPlan,
