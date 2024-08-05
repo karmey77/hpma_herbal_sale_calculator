@@ -172,6 +172,7 @@ h1 {
     flex: 1;
     margin-right: 10px;
     font-size: x-small;
+    text-align: left;
 }
 
 .input-group:last-child {
@@ -195,7 +196,7 @@ input {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    text-align: center;
+    text-align: left;
     background-color: rgba(255, 255, 255, 0.8);
 }
 
@@ -412,7 +413,7 @@ select:empty {
 
 /* 免責聲明樣式 */
 .no-blame {
-    font-size: .01rem;
+    font-size: 1rem;
     color: grey;
     text-align: center;
 }
@@ -438,6 +439,7 @@ select:empty {
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.7);
     transition: box-shadow 0.3s ease;
+    text-align: left;
 }
 
 .plant-selection:hover {
@@ -465,6 +467,7 @@ select:empty {
     color: #7b0c0c;
     margin-bottom: 10px;
     display: block;
+    text-align: left;
 }
 
 /* 作者頭像樣式 */

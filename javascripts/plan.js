@@ -170,7 +170,7 @@ function findBestPlantingPlan(budget, plants) {
 
 function displayPlanResult(result, totalBudget) {
     const resultDiv = document.getElementById('planResult');
-    let resultHTML = '<h2>最佳種植計劃：</h2><div class="result-container">';
+    let resultHTML = '<h2>最佳販售計劃：</h2><div class="result-container">';
 
     const qualityEmojis = {
         'gold': '💛',
@@ -227,7 +227,7 @@ function displayPlanResult(result, totalBudget) {
         <div class="result-summary">
             <p>總收入：<span class="currency">${formatCurrency(totalRevenue)} 金幣</span></p>
             <p>剩餘金額：<span class="currency">${formatCurrency(totalBudget - totalRevenue)} 金幣</span></p>
-            <p class="no-blame">本計算器無法及時反應版本變化，請謹慎使用！</p>
+            <p class="no-blame">計算時優先考慮高價值，<br>隨後才考慮下一品質，<br>若想限制特定品質、數量，<br>請使用<a href="#">用庫存計算</a>功能。</p>
         </div>
     </div>`;
 

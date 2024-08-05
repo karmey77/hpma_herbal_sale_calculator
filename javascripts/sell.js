@@ -325,7 +325,7 @@ function displayResult(result, totalBudget) {
                 const isSpecial = quality.color.includes('Special');
                 resultHTML += `
                 <tr>
-                    <td>${emoji} ${isSpecial ? '特殊色' : ''}</td>
+                    <td>${emoji} <br>${isSpecial ? '特殊色' : ''}</td>
                     <td>${quality.quantity}</td>
                     <td class="currency">${formatCurrency(quality.price)}</td>
                     <td class="currency">${formatCurrency(subtotal)}</td>
@@ -346,7 +346,7 @@ function displayResult(result, totalBudget) {
         <div class="result-summary">
             <p>總收入：<span class="currency">${formatCurrency(totalRevenue)} 金幣</span></p>
             <p>剩餘金額：<span class="currency">${formatCurrency(totalBudget - totalRevenue)} 金幣</span></p>
-            <p class="no-blame">本計算器無法及時反應版本變化，請謹慎使用！</p>
+            <p class="no-blame">計算時未優先考慮高價值，<br>若想優先考慮高價值，<br>請使用<a href="#">植物販售計畫</a>功能。</p>
         </div>
     </div>`;
 
