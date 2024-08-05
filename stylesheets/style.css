@@ -38,6 +38,46 @@ footer {
     color: #c0392b;
 }
 
+.nav-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0; /* 将底部边距改为0 */
+    width: 100%;
+}
+
+.nav-tabs .nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+/* 修改 .nav-tabs .nav-link 样式 */
+.nav-tabs .nav-link {
+    width: 100%;
+    color: #4592af;
+    border: 1px solid #dee2e6;
+    border-bottom: none; /* 移除底部边框 */
+    border-radius: 0.25rem 0.25rem 0 0;
+    padding: 10px 15px; /* 调整内边距 */
+}
+
+/* 修改 .nav-tabs .nav-link.active 样式 */
+.nav-tabs .nav-link.active {
+    color: #c0392b;
+    font-weight: bold;
+    background-color: #fff;
+    border-bottom: 1px solid #fff; /* 添加白色底部边框 */
+}
+
+#sell,
+#plan {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-top: none; /* 移除顶部边框 */
+    border-radius: 0 0 0.25rem 0.25rem;
+    margin-top: -1px; /* 向上移动1px，覆盖标签的底部边框 */
+}
+
 /* 作者和來源信息樣式 */
 .author,
 .source {
@@ -490,10 +530,6 @@ select:empty {
 
 .author a:hover {
     color: #c0392b;
-}
-
-.nav-tabs {
-    margin-bottom: 20px;
 }
 
 .nav-tabs .nav-link {
