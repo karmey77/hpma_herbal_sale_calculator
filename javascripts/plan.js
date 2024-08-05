@@ -16,7 +16,7 @@ function updatePlanPlantSelections() {
 
         const label = document.createElement('label');
         label.htmlFor = `planPlant${i}`;
-        label.textContent = `種植植物 Plant ${i + 1}`;
+        label.textContent = `收購植物 Plant ${i + 1}`;
 
         const select = document.createElement('select');
         select.id = `planPlant${i}`;
@@ -48,7 +48,7 @@ function updatePlanPlantOptions() {
         const select = document.getElementById(`planPlant${i}`);
         if (select) {
             const currentSelection = select.value;
-            select.innerHTML = '<option value="">請選擇植物</option>';
+            select.innerHTML = '<option value="">請選擇植物 Choose a plant</option>';
 
             const aquaticOptgroup = document.createElement('optgroup');
             aquaticOptgroup.label = '水生植物';
