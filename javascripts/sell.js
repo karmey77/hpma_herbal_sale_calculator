@@ -99,10 +99,18 @@ function updatePlantQuantities(index) {
     if (selectedPlant) {
         const isAquatic = plantData[selectedPlant].type === "水生";
         const hasSpecialColors = plantData[selectedPlant].special_colors.length > 0;
+        const hasGemPricing = Object.values(plantData[selectedPlant].colors).some(color => color.gems !== null);
 
-        let html = '<table class="quality-table"><tr><th>LV.</th><th>數量</th>';
+        let html = '';
+        
+        // 添加寶石計價提示
+        if (hasGemPricing) {
+            html += '<div class="gem-pricing-warning">⚠️<br>此植物含有寶石計價等級，<br>該等級不予計算<br>Gems pricing is not calculated</div>';
+        }
+
+        html += '<table class="quality-table"><tr><th>LV.</th><th>數量 Qty.</th>';
         if (isAquatic && hasSpecialColors) {
-            html += '<th>特殊色數量</th>';
+            html += '<th>特殊色數量 Spec. Col.</th>';
         }
         html += '</tr>';
 
@@ -114,11 +122,16 @@ function updatePlantQuantities(index) {
         for (const quality of qualities) {
             const colorData = plantData[selectedPlant].colors[quality.name];
             if (colorData) {
+                const isGemPricing = colorData.gems !== null;
                 html += `<tr>
                     <td>${quality.emoji} ${quality.label}</td>
-                    <td><input type="number" id="${quality.name}${index}" value="0" min="0"></td>`;
+                    <td><input type="number" id="${quality.name}${index}" value="0" min="0" 
+                        ${isGemPricing ? 'disabled' : ''} 
+                        class="${isGemPricing ? 'gem-pricing-input' : ''}"></td>`;
                 if (isAquatic && hasSpecialColors) {
-                    html += `<td><input type="number" id="${quality.name}Special${index}" value="0" min="0"></td>`;
+                    html += `<td><input type="number" id="${quality.name}Special${index}" value="0" min="0" 
+                        ${isGemPricing ? 'disabled' : ''} 
+                        class="${isGemPricing ? 'gem-pricing-input' : ''}"></td>`;
                 }
                 html += '</tr>';
             }

@@ -553,3 +553,25 @@ select:empty {
 #planResult {
     margin-top: 20px;
 }
+
+/* 寶石計價提示樣式 */
+.gem-pricing-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.gem-pricing-input {
+    background-color: #f0f0f0;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.gem-pricing-input:hover {
+    background-color: #e8e8e8;
+}
