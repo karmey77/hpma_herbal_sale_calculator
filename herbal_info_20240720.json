@@ -495,49 +495,49 @@
             }
         },
         "special_colors": []
-    },
-    "向日葵": {
-        "type": "陸生",
-        "colors": {
-            "gold": {
-                "gold_coins": null,
-                "gems": null
-            },
-            "purple": {
-                "gold_coins": null,
-                "gems": null
-            },
-            "blue": {
-                "gold_coins": null,
-                "gems": null
-            },
-            "white": {
-                "gold_coins": 1,
-                "gems": null
-            }
-        },
-        "special_colors": []
-    },
-    "惡人掌": {
-        "type": "陸生",
-        "colors": {
-            "gold": {
-                "gold_coins": null,
-                "gems": null
-            },
-            "purple": {
-                "gold_coins": null,
-                "gems": null
-            },
-            "blue": {
-                "gold_coins": null,
-                "gems": null
-            },
-            "white": {
-                "gold_coins": 1,
-                "gems": null
-            }
-        },
-        "special_colors": []
     }
+    // "向日葵": {
+    //     "type": "陸生",
+    //     "colors": {
+    //         "gold": {
+    //             "gold_coins": null,
+    //             "gems": null
+    //         },
+    //         "purple": {
+    //             "gold_coins": null,
+    //             "gems": null
+    //         },
+    //         "blue": {
+    //             "gold_coins": null,
+    //             "gems": null
+    //         },
+    //         "white": {
+    //             "gold_coins": 1,
+    //             "gems": null
+    //         }
+    //     },
+    //     "special_colors": []
+    // },
+    // "惡人掌": {
+    //     "type": "陸生",
+    //     "colors": {
+    //         "gold": {
+    //             "gold_coins": null,
+    //             "gems": null
+    //         },
+    //         "purple": {
+    //             "gold_coins": null,
+    //             "gems": null
+    //         },
+    //         "blue": {
+    //             "gold_coins": null,
+    //             "gems": null
+    //         },
+    //         "white": {
+    //             "gold_coins": 1,
+    //             "gems": null
+    //         }
+    //     },
+    //     "special_colors": []
+    // }
 }
