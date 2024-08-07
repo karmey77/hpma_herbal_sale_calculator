@@ -112,7 +112,8 @@ function updatePlantQuantities(index) {
             { emoji: '💙', name: 'blue', label: '' }
         ];
         for (const quality of qualities) {
-            if (plantData[selectedPlant].colors[quality.name] && plantData[selectedPlant].colors[quality.name].gold_coins) {
+            const colorData = plantData[selectedPlant].colors[quality.name];
+            if (colorData) {
                 html += `<tr>
                     <td>${quality.emoji} ${quality.label}</td>
                     <td><input type="number" id="${quality.name}${index}" value="0" min="0"></td>`;
@@ -151,14 +152,21 @@ function calculate() {
                     const hasSpecialColors = plantData[plantName].special_colors.length > 0;
 
                     for (const color of ['gold', 'purple', 'blue']) {
-                        const quantity = parseInt(document.getElementById(`${color}${i}`).value) || 0;
-                        const basePrice = plantData[plantName].colors[color].gold_coins || 0;
-                        if (basePrice > 0) {
+                        const colorData = plantData[plantName].colors[color];
+                        if (colorData) {
+                            let quantity = 0;
+                            if (colorData.gold_coins !== null) {
+                                quantity = parseInt(document.getElementById(`${color}${i}`).value) || 0;
+                            }
+                            const basePrice = colorData.gold_coins || 0;
                             const price = Math.floor(basePrice * priceIncrease);
                             plant.qualities.push({ color, quantity, price });
 
                             if (isAquatic && hasSpecialColors) {
-                                const specialQuantity = parseInt(document.getElementById(`${color}Special${i}`).value) || 0;
+                                let specialQuantity = 0;
+                                if (colorData.gold_coins !== null) {
+                                    specialQuantity = parseInt(document.getElementById(`${color}Special${i}`).value) || 0;
+                                }
                                 const baseSpecialPrice = basePrice * 1.1; // 10% bonus for special colors
                                 const specialPrice = Math.ceil(baseSpecialPrice * priceIncrease);
                                 plant.qualities.push({ color: `${color}Special`, quantity: specialQuantity, price: specialPrice });
