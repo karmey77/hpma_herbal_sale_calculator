@@ -59,7 +59,7 @@ function updatePlantOptions() {
             select.innerHTML = '<option value="">請選擇植物 Choose a plant</option>';
 
             const aquaticOptgroup = document.createElement('optgroup');
-            aquaticOptgroup.label = '水生植物';
+            aquaticOptgroup.label = '水生植物 Aquatic Plants';
             for (const [plant, data] of Object.entries(plantData).filter(([_, data]) => data.type === "水生")) {
                 if (!selectedPlants.has(plant) || plant === currentSelection) {
                     const option = document.createElement('option');
@@ -74,7 +74,7 @@ function updatePlantOptions() {
             }
 
             const terrestrialOptgroup = document.createElement('optgroup');
-            terrestrialOptgroup.label = '陸生植物';
+            terrestrialOptgroup.label = '陸生植物 Terrestrial Plants';
             for (const [plant, data] of Object.entries(plantData).filter(([_, data]) => data.type === "陸生")) {
                 if (!selectedPlants.has(plant) || plant === currentSelection) {
                     const option = document.createElement('option');

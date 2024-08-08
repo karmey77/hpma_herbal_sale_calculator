@@ -51,9 +51,9 @@ function updatePlanPlantOptions() {
             select.innerHTML = '<option value="">請選擇植物 Choose a plant</option>';
 
             const aquaticOptgroup = document.createElement('optgroup');
-            aquaticOptgroup.label = '水生植物';
+            aquaticOptgroup.label = '水生植物 Aquatic Plants';
             const terrestrialOptgroup = document.createElement('optgroup');
-            terrestrialOptgroup.label = '陸生植物';
+            terrestrialOptgroup.label = '陸生植物 Terrestrial Plants';
 
             for (const [plant, data] of Object.entries(plantData)) {
                 if (!selectedPlants.has(plant) || plant === currentSelection) {
@@ -193,7 +193,7 @@ function findBestPlantingPlan(budget, plants) {
 function displayPlanResult(result, totalBudget) {
     const resultDiv = document.getElementById('planResult');
     let resultHTML = '<h2>最佳販售計劃：</h2>';
-    resultHTML += '<p class="plan-note">注意：每種植物的每個品質最多限制30株。</p>';
+    resultHTML += '<p class="plan-note">⚠️<br>注意：每種植物的每個品質最多限制 30 株。<br>Each plant can have a maximum of 30 of each quality.</p>';
     resultHTML += '<div class="result-container">';
 
     const qualityEmojis = {
@@ -258,7 +258,8 @@ function displayPlanResult(result, totalBudget) {
         <div class="result-summary">
             <p>總收入：<span class="currency">${formatCurrency(totalRevenue)} 金幣</span></p>
             <p>剩餘金額：<span class="currency">${formatCurrency(totalBudget - totalRevenue)} 金幣</span></p>
-            <p class="no-blame">計算時考慮所有植物和品質的組合，<br>並限制每種植物每個品質最多 30 株，<br>若想自定義限制，<br>請使用<a href="#">用庫存計算</a>功能。</p>
+            <p class="no-blame">計算時考慮所有植物和品質的組合，<br>並限制每種植物每個品質最多 30 株。<br>若想自定義限制，請使用<a href="#">用庫存計算</a>。</p>
+            <p class="no-blame">If you would like to have your own restrictions,<br>please refer to <a href="#">Calculate with Inventory</a>.</p>
         </div>
     </div>`;
 

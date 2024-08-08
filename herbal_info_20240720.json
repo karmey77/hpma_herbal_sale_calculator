@@ -1,5 +1,5 @@
 {
-    "魚鰓草": {
+    "魚鰓草 (Gillyweed)": {
         "type": "水生",
         "colors": {
             "gold": {
@@ -19,10 +19,9 @@
                 "gems": null
             }
         },
-        "special_colors": [
-        ]
+        "special_colors": []
     },
-    "綠菊": {
+    "綠菊 (Wild Pansy)": {
         "type": "水生",
         "colors": {
             "gold": {
@@ -43,13 +42,12 @@
             }
         },
         "special_colors": [
-
             "黃綠色",
             "橙色",
             "紅色"
         ]
     },
-    "巨藻": {
+    "巨藻 (Kelp)": {
         "type": "水生",
         "colors": {
             "gold": {
@@ -74,7 +72,7 @@
             "青色"
         ]
     },
-    "紅火焰藻": {
+    "紅火焰藻 (Dragon Breath Macroalgae)": {
         "type": "水生",
         "colors": {
             "gold": {
@@ -98,7 +96,7 @@
             "紅色"
         ]
     },
-    "紅波水草": {
+    "紅波水草 (Ludwigia Glandulosa)": {
         "type": "水生",
         "colors": {
             "gold": {
@@ -122,7 +120,7 @@
             "黃色"
         ]
     },
-    "鳳眼蓮": {
+    "鳳眼蓮 (Water Hyacinth)": {
         "type": "水生",
         "colors": {
             "gold": {
@@ -144,7 +142,7 @@
         },
         "special_colors": []
     },
-    "菱葉丁香蓼": {
+    "菱葉丁香蓼 (Fanwort)": {
         "type": "水生",
         "colors": {
             "gold": {
@@ -166,7 +164,7 @@
         },
         "special_colors": []
     },
-    "睡蓮": {
+    "睡蓮 (Water Lily)": {
         "type": "水生",
         "colors": {
             "gold": {
@@ -188,7 +186,7 @@
         },
         "special_colors": []
     },
-    "毒牙天竺葵": {
+    "毒牙天竺葵 (Fanged Geranium)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -210,7 +208,7 @@
         },
         "special_colors": []
     },
-    "玫瑰": {
+    "玫瑰 (Rose)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -232,7 +230,7 @@
         },
         "special_colors": []
     },
-    "三色堇": {
+    "三色堇 (Wild Pansy)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -254,7 +252,7 @@
         },
         "special_colors": []
     },
-    "膨豆莢": {
+    "膨豆莢 (Puffapod)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -276,7 +274,7 @@
         },
         "special_colors": []
     },
-    "嗅幻草": {
+    "嗅幻草 (Niffler's Fancy)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -298,7 +296,7 @@
         },
         "special_colors": []
     },
-    "羽衣草": {
+    "羽衣草 (Lady's Mantle)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -320,7 +318,7 @@
         },
         "special_colors": []
     },
-    "魔蘋果": {
+    "魔蘋果 (Mandrake)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -342,7 +340,7 @@
         },
         "special_colors": []
     },
-    "中國咬人甘藍": {
+    "中國咬人甘藍 (Chinese Chomping Cabbage)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -364,7 +362,7 @@
         },
         "special_colors": []
     },
-    "牡丹": {
+    "牡丹 (Peony)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -386,7 +384,7 @@
         },
         "special_colors": []
     },
-    "秋海棠": {
+    "秋海棠 (Begonia)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -408,7 +406,7 @@
         },
         "special_colors": []
     },
-    "五月花": {
+    "五月花 (Mayflower)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -430,7 +428,7 @@
         },
         "special_colors": []
     },
-    "繡球花": {
+    "繡球花 (Hydrangea)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -452,7 +450,7 @@
         },
         "special_colors": []
     },
-    "水仙花": {
+    "水仙花 (Daffodil)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -474,7 +472,7 @@
         },
         "special_colors": []
     },
-    "鈴蘭": {
+    "鈴蘭 (Lily of the Valley)": {
         "type": "陸生",
         "colors": {
             "gold": {
@@ -496,48 +494,48 @@
         },
         "special_colors": []
     }
-    // "向日葵": {
-    //     "type": "陸生",
-    //     "colors": {
-    //         "gold": {
-    //             "gold_coins": null,
-    //             "gems": null
-    //         },
-    //         "purple": {
-    //             "gold_coins": null,
-    //             "gems": null
-    //         },
-    //         "blue": {
-    //             "gold_coins": null,
-    //             "gems": null
-    //         },
-    //         "white": {
-    //             "gold_coins": 1,
-    //             "gems": null
-    //         }
-    //     },
-    //     "special_colors": []
-    // },
-    // "惡人掌": {
-    //     "type": "陸生",
-    //     "colors": {
-    //         "gold": {
-    //             "gold_coins": null,
-    //             "gems": null
-    //         },
-    //         "purple": {
-    //             "gold_coins": null,
-    //             "gems": null
-    //         },
-    //         "blue": {
-    //             "gold_coins": null,
-    //             "gems": null
-    //         },
-    //         "white": {
-    //             "gold_coins": 1,
-    //             "gems": null
-    //         }
-    //     },
-    //     "special_colors": []
-    // }
+//     "向日葵 (Sunflower)": {
+//         "type": "陸生",
+//         "colors": {
+//             "gold": {
+//                 "gold_coins": null,
+//                 "gems": null
+//             },
+//             "purple": {
+//                 "gold_coins": null,
+//                 "gems": null
+//             },
+//             "blue": {
+//                 "gold_coins": null,
+//                 "gems": null
+//             },
+//             "white": {
+//                 "gold_coins": 1,
+//                 "gems": null
+//             }
+//         },
+//         "special_colors": []
+//     },
+//     "惡人掌 (Mimbulus Mimbletonia)": {
+//         "type": "陸生",
+//         "colors": {
+//             "gold": {
+//                 "gold_coins": null,
+//                 "gems": null
+//             },
+//             "purple": {
+//                 "gold_coins": null,
+//                 "gems": null
+//             },
+//             "blue": {
+//                 "gold_coins": null,
+//                 "gems": null
+//             },
+//             "white": {
+//                 "gold_coins": 1,
+//                 "gems": null
+//             }
+//         },
+//         "special_colors": []
+//     }
 }

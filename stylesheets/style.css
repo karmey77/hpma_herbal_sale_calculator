@@ -380,11 +380,11 @@ select optgroup option {
     font-weight: normal;
 }
 
-select optgroup[label="水生植物"] {
+select optgroup[label="水生植物 Aquatic Plants"] {
     background-color: #e6f3ff;
 }
 
-select optgroup[label="陸生植物"] {
+select optgroup[label="陸生植物 Terrestrial Plants"] {
     background-color: #fff0e6;
 }
 
@@ -582,6 +582,7 @@ select:empty {
     color: #856404;
     padding: 10px;
     margin-bottom: 15px;
+    margin-top: 15px;
     border-radius: 5px;
     font-size: 0.9em;
     text-align: center;
