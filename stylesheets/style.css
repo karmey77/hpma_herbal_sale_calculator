@@ -575,3 +575,14 @@ select:empty {
 .gem-pricing-input:hover {
     background-color: #e8e8e8;
 }
+
+.plan-note {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-align: center;
+}
