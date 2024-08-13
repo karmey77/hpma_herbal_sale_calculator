@@ -140,11 +140,9 @@ function findBestPlantingPlan(budget, plants) {
         });
     });
 
-    // 按價格降序排列金色品質
+    // 按價格降序排列金色品質和其他品質
     goldQualities.sort((a, b) => b.price - a.price);
-
-    // 合併品質列表，金色品質優先
-    const allQualities = [...goldQualities, ...otherQualities];
+    otherQualities.sort((a, b) => b.price - a.price);
 
     let remainingBudget = budget;
     const plan = {};
@@ -160,22 +158,30 @@ function findBestPlantingPlan(budget, plants) {
             remainingBudget -= maxQuantity * quality.price;
             plantQuantities[key] = maxQuantity;
         }
-        if (remainingBudget <= 0) break;
     }
 
-    // 如果還有剩餘預算，分配其他品質
-    if (remainingBudget > 0) {
+    // 分配其他品質，直到預算用盡或無法購買任何植物
+    let canBuyMore = true;
+    while (remainingBudget > 0 && canBuyMore) {
+        canBuyMore = false;
         for (const quality of otherQualities) {
             const key = `${quality.name}-${quality.color}`;
             const currentQuantity = plantQuantities[key] || 0;
-            const maxQuantity = Math.min(30 - currentQuantity, Math.floor(remainingBudget / quality.price));
-            if (maxQuantity > 0) {
-                if (!plan[quality.name]) plan[quality.name] = [];
-                plan[quality.name].push({ ...quality, quantity: maxQuantity });
-                remainingBudget -= maxQuantity * quality.price;
-                plantQuantities[key] = (plantQuantities[key] || 0) + maxQuantity;
+            if (currentQuantity < 30 && quality.price <= remainingBudget) {
+                const maxQuantity = Math.min(30 - currentQuantity, Math.floor(remainingBudget / quality.price));
+                if (maxQuantity > 0) {
+                    if (!plan[quality.name]) plan[quality.name] = [];
+                    const existingQuality = plan[quality.name].find(q => q.color === quality.color);
+                    if (existingQuality) {
+                        existingQuality.quantity += maxQuantity;
+                    } else {
+                        plan[quality.name].push({ ...quality, quantity: maxQuantity });
+                    }
+                    remainingBudget -= maxQuantity * quality.price;
+                    plantQuantities[key] = (plantQuantities[key] || 0) + maxQuantity;
+                    canBuyMore = true;
+                }
             }
-            if (remainingBudget <= 0) break;
         }
     }
 
@@ -223,16 +229,20 @@ function displayPlanResult(result, totalBudget) {
 
             let plantTotal = 0;
             for (const color of qualityOrder) {
-                const quality = qualities.find(q => q.color === color) || { color, quantity: 0, price: plantData[plantName].colors[color].gold_coins };
-                const subtotal = quality.quantity * quality.price;
+                const quality = qualities.find(q => q.color === color);
+                const basePrice = plantData[plantName].colors[color].gold_coins;
+                const priceIncrease = sharedValues.priceIncrease / 100 + 1;
+                const adjustedPrice = Math.floor(basePrice * priceIncrease);
+                const quantity = quality ? quality.quantity : 0;
+                const subtotal = quantity * adjustedPrice;
                 plantTotal += subtotal;
                 totalRevenue += subtotal;
 
                 resultHTML += `
                     <tr>
                         <td>${qualityEmojis[color]}</td>
-                        <td>${quality.quantity}</td>
-                        <td class="currency">${formatCurrency(quality.price)}</td>
+                        <td>${quantity}</td>
+                        <td class="currency">${formatCurrency(adjustedPrice)}</td>
                         <td class="currency">${formatCurrency(subtotal)}</td>
                     </tr>`;
             }
