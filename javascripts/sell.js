@@ -313,7 +313,9 @@ function generatePlantCombinations(plant, budget) {
 
 function displayResult(result, totalBudget) {
     const resultDiv = document.getElementById('result');
-    let resultHTML = '<h2>最佳組合：</h2><div class="result-container">';
+    let resultHTML = `
+        <h2>最佳組合 / Best Combination:</h2>
+        <div class="result-container">`;
 
     const qualityEmojis = {
         'gold': '💛',
@@ -326,15 +328,13 @@ function displayResult(result, totalBudget) {
     for (const item of result.combination) {
         resultHTML += `
         <div class="result-item">
+            <h3 class="plant-name">${item.name}</h3>
             <table class="result-table">
                 <tr>
-                    <th colspan="4" class="plant-name">${item.name}</th>
-                </tr>
-                <tr>
-                    <th>品質</th>
-                    <th>數量</th>
-                    <th>單價</th>
-                    <th>小計</th>
+                    <th>品質<br>Quality</th>
+                    <th>數量<br>Quantity</th>
+                    <th>單價<br>Unit Price</th>
+                    <th>小計<br>Subtotal</th>
                 </tr>`;
 
         let plantTotal = 0;
@@ -346,7 +346,7 @@ function displayResult(result, totalBudget) {
                 const isSpecial = quality.color.includes('Special');
                 resultHTML += `
                 <tr>
-                    <td>${emoji} <br>${isSpecial ? '特殊色' : ''}</td>
+                    <td>${emoji} ${isSpecial ? '<br>特殊色 / Special' : ''}</td>
                     <td>${quality.quantity}</td>
                     <td class="currency">${formatCurrency(quality.price)}</td>
                     <td class="currency">${formatCurrency(subtotal)}</td>
@@ -355,8 +355,8 @@ function displayResult(result, totalBudget) {
         }
         resultHTML += `
                 <tr class="plant-total">
-                    <td colspan="3">總計</td>
-                    <td class="currency">${formatCurrency(plantTotal)} 金幣</td>
+                    <td colspan="3">總計 / Total</td>
+                    <td class="currency">${formatCurrency(plantTotal)}</td>
                 </tr>
             </table>
         </div>`;
@@ -364,16 +364,18 @@ function displayResult(result, totalBudget) {
     }
 
     resultHTML += `
-        <div class="result-summary">
-            <p>總收入：<span class="currency">${formatCurrency(totalRevenue)} 金幣</span></p>
-            <p>剩餘金額：<span class="currency">${formatCurrency(totalBudget - totalRevenue)} 金幣</span></p>
-            <p class="no-blame">計算時未優先考慮高價值，<br>若想優先考慮高價值，<br>請使用<a href="#">植物販售計畫</a>功能。</p>
         </div>
-    </div>`;
+        <div class="result-summary">
+            <p>總收入 / Total Revenue: <span class="currency">${formatCurrency(totalRevenue)}</span></p>
+            <p>剩餘金額 / Remaining Budget: <span class="currency">${formatCurrency(totalBudget - totalRevenue)}</span></p>
+        </div>
+        <div class="no-blame" style="margin-top: 20px;">
+            <p>計算時未優先考慮高價值。若想優先考慮高價值，請使用<a href="#">植物販售計畫</a>功能。</p>
+            <p>This calculation does not prioritize high-value items.<br>To prioritize high-value items,<br>please use the <a href="#">Plant Selling Plan</a> feature.</p>
+        </div>`;
 
     resultDiv.innerHTML = resultHTML;
 }
-
 // 初始化頁面
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('calculateButton').addEventListener('click', calculate);

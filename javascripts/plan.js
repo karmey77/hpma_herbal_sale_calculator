@@ -188,9 +188,13 @@ function findBestPlantingPlan(budget, plants) {
 
 function displayPlanResult(result, totalBudget) {
     const resultDiv = document.getElementById('planResult');
-    let resultHTML = '<h2>最佳販售計劃：</h2>';
-    resultHTML += '<p class="plan-note">⚠️<br>注意：每種植物的每個品質最多限制 30 株。<br>Each plant can have a maximum of 30 of each quality.</p>';
-    resultHTML += '<div class="result-container">';
+    let resultHTML = `
+        <h2 class="result-title">最佳販售計劃 / Best Selling Plan:</h2>
+        <div class="plan-note">
+            <p>⚠️ 注意：每種植物的每個品質最多限制 30 株。</p>
+            <p>Note: Each plant can have a maximum of 30 of each quality.</p>
+        </div>
+        <div class="result-container">`;
 
     const qualityEmojis = {
         'gold': '💛',
@@ -199,40 +203,34 @@ function displayPlanResult(result, totalBudget) {
     };
 
     const qualityOrder = ['gold', 'purple', 'blue'];
-
     let totalRevenue = 0;
 
     if (Object.keys(result.plan).length === 0) {
-        resultHTML += '<p>無法找到合適的種植方案。請檢查預算和植物選擇。</p>';
+        resultHTML += '<p class="no-result">無法找到合適的種植方案。請檢查預算和植物選擇。</p>';
+        resultHTML += '<p class="no-result">No suitable plan found. Please check your budget and plant selection.</p>';
     } else {
         for (const [plantName, qualities] of Object.entries(result.plan)) {
-            const plantData = window.plantData[plantName];
             resultHTML += `
             <div class="result-item">
+                <h3 class="plant-name">${plantName}</h3>
                 <table class="result-table">
                     <tr>
-                        <th colspan="4" class="plant-name">${plantName}</th>
-                    </tr>
-                    <tr>
-                        <th>品質</th>
-                        <th>數量</th>
-                        <th>單價</th>
-                        <th>小計</th>
+                        <th>品質<br>Quality</th>
+                        <th>數量<br>Quantity</th>
+                        <th>單價<br>Unit Price</th>
+                        <th>小計<br>Subtotal</th>
                     </tr>`;
 
             let plantTotal = 0;
-            const sortedQualities = qualityOrder
-                .map(color => qualities.find(q => q.color === color))
-                .filter(q => q);
-
-            for (const quality of sortedQualities) {
+            for (const color of qualityOrder) {
+                const quality = qualities.find(q => q.color === color) || { color, quantity: 0, price: plantData[plantName].colors[color].gold_coins };
                 const subtotal = quality.quantity * quality.price;
                 plantTotal += subtotal;
                 totalRevenue += subtotal;
 
                 resultHTML += `
                     <tr>
-                        <td>${qualityEmojis[quality.color]}</td>
+                        <td>${qualityEmojis[color]}</td>
                         <td>${quality.quantity}</td>
                         <td class="currency">${formatCurrency(quality.price)}</td>
                         <td class="currency">${formatCurrency(subtotal)}</td>
@@ -241,8 +239,8 @@ function displayPlanResult(result, totalBudget) {
 
             resultHTML += `
                     <tr class="plant-total">
-                        <td colspan="3">總計</td>
-                        <td class="currency">${formatCurrency(plantTotal)} 金幣</td>
+                        <td colspan="3">總計 / Total</td>
+                        <td class="currency">${formatCurrency(plantTotal)}</td>
                     </tr>
                 </table>
             </div>`;
@@ -250,13 +248,17 @@ function displayPlanResult(result, totalBudget) {
     }
 
     resultHTML += `
-        <div class="result-summary">
-            <p>總收入：<span class="currency">${formatCurrency(totalRevenue)} 金幣</span></p>
-            <p>剩餘金額：<span class="currency">${formatCurrency(totalBudget - totalRevenue)} 金幣</span></p>
-            <p class="no-blame">計算時考慮所有植物和品質的組合，<br>並限制每種植物每個品質最多 30 株。<br>若想自定義限制，請使用<a href="#">用庫存計算</a>。</p>
-            <p class="no-blame">If you would like to have your own restrictions,<br>please refer to <a href="#">Calculate with Inventory</a>.</p>
         </div>
-    </div>`;
+        <div class="result-summary">
+            <p>總收入 / Total Revenue: <span class="currency">${formatCurrency(totalRevenue)}</span></p>
+            <p>剩餘金額 / Remaining Budget: <span class="currency">${formatCurrency(totalBudget - totalRevenue)}</span></p>
+        </div>
+        <div class="no-blame" style="margin-top: 20px;">
+            <p>計算時考慮所有植物和品質的組合，並限制每種植物每個品質最多 30 株。</p>
+            <p>The calculation considers all plant and quality combinations, with a limit of 30 for each quality per plant.</p>
+            <p>若想自定義限制，請使用<a href="#">用庫存計算</a>。</p>
+            <p>For custom restrictions, please use <a href="#">Calculate with Inventory</a>.</p>
+        </div>`;
 
     resultDiv.innerHTML = resultHTML;
 }
