@@ -127,66 +127,62 @@ function calculatePlan() {
 }
 
 function findBestPlantingPlan(budget, plants) {
-    // 創建一個包含所有植物所有品質的扁平數組
-    const allQualities = plants.flatMap(plant => 
-        plant.qualities.map(q => ({...q, name: plant.name}))
-    );
-
-    // 創建動態規劃表
-    const dp = new Array(allQualities.length + 1).fill(null).map(() => new Array(budget + 1).fill(0));
-    const choices = new Array(allQualities.length + 1).fill(null).map(() => new Array(budget + 1).fill(null));
-
-    for (let i = 1; i <= allQualities.length; i++) {
-        const quality = allQualities[i - 1];
-        for (let j = 1; j <= budget; j++) {
-            if (quality.price > j) {
-                dp[i][j] = dp[i - 1][j];
-                choices[i][j] = choices[i - 1][j];
+    // 將植物品質分為金色和非金色
+    const goldQualities = [];
+    const otherQualities = [];
+    plants.forEach(plant => {
+        plant.qualities.forEach(quality => {
+            if (quality.color === 'gold') {
+                goldQualities.push({ ...quality, name: plant.name });
             } else {
-                const maxQuantity = Math.min(30, Math.floor(j / quality.price)); // 限制最大數量為30
-                let bestValue = dp[i - 1][j];
-                let bestQuantity = 0;
-
-                for (let quantity = 1; quantity <= maxQuantity; quantity++) {
-                    const value = quantity * quality.price + dp[i - 1][j - quantity * quality.price];
-                    if (value > bestValue) {
-                        bestValue = value;
-                        bestQuantity = quantity;
-                    }
-                }
-
-                dp[i][j] = bestValue;
-                choices[i][j] = bestQuantity > 0 ? { ...quality, quantity: bestQuantity } : choices[i - 1][j];
+                otherQualities.push({ ...quality, name: plant.name });
             }
-        }
-    }
+        });
+    });
 
-    // 回溯找出最佳方案
+    // 按價格降序排列金色品質
+    goldQualities.sort((a, b) => b.price - a.price);
+
+    // 合併品質列表，金色品質優先
+    const allQualities = [...goldQualities, ...otherQualities];
+
     let remainingBudget = budget;
-    let index = allQualities.length;
-    const bestPlan = [];
+    const plan = {};
+    const plantQuantities = {};
 
-    while (index > 0 && remainingBudget > 0) {
-        const choice = choices[index][remainingBudget];
-        if (choice && choice.quantity > 0) {
-            bestPlan.push(choice);
-            remainingBudget -= choice.quantity * choice.price;
+    // 優先分配金色品質
+    for (const quality of goldQualities) {
+        const key = `${quality.name}-${quality.color}`;
+        const maxQuantity = Math.min(30, Math.floor(remainingBudget / quality.price));
+        if (maxQuantity > 0) {
+            if (!plan[quality.name]) plan[quality.name] = [];
+            plan[quality.name].push({ ...quality, quantity: maxQuantity });
+            remainingBudget -= maxQuantity * quality.price;
+            plantQuantities[key] = maxQuantity;
         }
-        index--;
+        if (remainingBudget <= 0) break;
     }
 
-    // 將結果按植物名稱分組
-    const groupedPlan = bestPlan.reduce((acc, item) => {
-        if (!acc[item.name]) {
-            acc[item.name] = [];
+    // 如果還有剩餘預算，分配其他品質
+    if (remainingBudget > 0) {
+        for (const quality of otherQualities) {
+            const key = `${quality.name}-${quality.color}`;
+            const currentQuantity = plantQuantities[key] || 0;
+            const maxQuantity = Math.min(30 - currentQuantity, Math.floor(remainingBudget / quality.price));
+            if (maxQuantity > 0) {
+                if (!plan[quality.name]) plan[quality.name] = [];
+                plan[quality.name].push({ ...quality, quantity: maxQuantity });
+                remainingBudget -= maxQuantity * quality.price;
+                plantQuantities[key] = (plantQuantities[key] || 0) + maxQuantity;
+            }
+            if (remainingBudget <= 0) break;
         }
-        acc[item.name].push(item);
-        return acc;
-    }, {});
+    }
 
     return {
-        plan: groupedPlan,
-        total: dp[allQualities.length][budget]
+        plan: plan,
+        total: budget - remainingBudget,
+        remainingBudget: remainingBudget
     };
 }
 
@@ -225,10 +221,9 @@ function displayPlanResult(result, totalBudget) {
                     </tr>`;
 
             let plantTotal = 0;
-            // 按照預定義的順序排序品質
             const sortedQualities = qualityOrder
                 .map(color => qualities.find(q => q.color === color))
-                .filter(q => q); // 移除未定義的項目
+                .filter(q => q);
 
             for (const quality of sortedQualities) {
                 const subtotal = quality.quantity * quality.price;
