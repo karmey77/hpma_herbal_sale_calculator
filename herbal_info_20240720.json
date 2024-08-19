@@ -228,7 +228,13 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "紅色",
+            "黃色",
+            "粉紅色",
+            "藍色",
+            "白色"
+        ]
     },
     "三色堇 (Wild Pansy)": {
         "type": "陸生",
@@ -250,7 +256,9 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "青色"
+        ]
     },
     "膨豆莢 (Puffapod)": {
         "type": "陸生",
@@ -316,7 +324,12 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "黃色",
+            "白色",
+            "橙色",
+            "藍色"
+        ]
     },
     "魔蘋果 (Mandrake)": {
         "type": "陸生",
@@ -382,7 +395,12 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "黃綠色",
+            "橙色",
+            "白色",
+            "紅色"
+        ]
     },
     "秋海棠 (Begonia)": {
         "type": "陸生",
@@ -404,7 +422,9 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "粉色"
+        ]
     },
     "五月花 (Mayflower)": {
         "type": "陸生",
@@ -426,7 +446,9 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "紅色"
+        ]
     },
     "繡球花 (Hydrangea)": {
         "type": "陸生",
@@ -448,7 +470,9 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "橙色"
+        ]
     },
     "水仙花 (Daffodil)": {
         "type": "陸生",
@@ -470,7 +494,10 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "橙色",
+            "白色"
+        ]
     },
     "鈴蘭 (Lily of the Valley)": {
         "type": "陸生",
