@@ -127,67 +127,94 @@ function calculatePlan() {
 }
 
 function findBestPlantingPlan(budget, plants) {
-    // 將植物品質分為金色和非金色
-    const goldQualities = [];
-    const otherQualities = [];
+    // Flatten the plant qualities into a single array and create a lookup map
+    const allQualities = [];
+    const qualityMap = new Map();
     plants.forEach(plant => {
         plant.qualities.forEach(quality => {
-            if (quality.color === 'gold') {
-                goldQualities.push({ ...quality, name: plant.name });
-            } else {
-                otherQualities.push({ ...quality, name: plant.name });
-            }
+            const qualityKey = `${plant.name}-${quality.color}`;
+            allQualities.push({
+                ...quality,
+                name: plant.name,
+                key: qualityKey
+            });
+            qualityMap.set(qualityKey, quality.price);
         });
     });
 
-    // 按價格降序排列金色品質和其他品質
-    goldQualities.sort((a, b) => b.price - a.price);
-    otherQualities.sort((a, b) => b.price - a.price);
+    // Sort qualities by price in descending order, with gold always first
+    allQualities.sort((a, b) => {
+        if (a.color === 'gold' && b.color !== 'gold') return -1;
+        if (a.color !== 'gold' && b.color === 'gold') return 1;
+        return b.price - a.price;
+    });
 
-    let remainingBudget = budget;
-    const plan = {};
-    const plantQuantities = {};
+    // Initialize the dynamic programming table
+    const dp = new Array(allQualities.length + 1).fill(null).map(() => 
+        new Array(budget + 1).fill(0)
+    );
+    const choices = new Array(allQualities.length + 1).fill(null).map(() => 
+        new Array(budget + 1).fill(null)
+    );
 
-    // 優先分配金色品質
-    for (const quality of goldQualities) {
-        const key = `${quality.name}-${quality.color}`;
-        const maxQuantity = Math.min(30, Math.floor(remainingBudget / quality.price));
-        if (maxQuantity > 0) {
-            if (!plan[quality.name]) plan[quality.name] = [];
-            plan[quality.name].push({ ...quality, quantity: maxQuantity });
-            remainingBudget -= maxQuantity * quality.price;
-            plantQuantities[key] = maxQuantity;
+    // Helper function to check if gold quantity is highest
+    function isGoldHighest(currentChoices, newQuality, newQuantity) {
+        const goldQuantity = (currentChoices[`${newQuality.name}-gold`] || 0) + 
+                             (newQuality.color === 'gold' ? newQuantity : 0);
+        const otherQuantities = Object.entries(currentChoices)
+            .filter(([key]) => !key.endsWith('-gold'))
+            .map(([key, value]) => value);
+        if (newQuality.color !== 'gold') {
+            otherQuantities.push(newQuantity);
         }
+        return goldQuantity >= Math.max(...otherQuantities, 0);
     }
 
-    // 分配其他品質，直到預算用盡或無法購買任何植物
-    let canBuyMore = true;
-    while (remainingBudget > 0 && canBuyMore) {
-        canBuyMore = false;
-        for (const quality of otherQualities) {
-            const key = `${quality.name}-${quality.color}`;
-            const currentQuantity = plantQuantities[key] || 0;
-            if (currentQuantity < 30 && quality.price <= remainingBudget) {
-                const maxQuantity = Math.min(30 - currentQuantity, Math.floor(remainingBudget / quality.price));
-                if (maxQuantity > 0) {
-                    if (!plan[quality.name]) plan[quality.name] = [];
-                    const existingQuality = plan[quality.name].find(q => q.color === quality.color);
-                    if (existingQuality) {
-                        existingQuality.quantity += maxQuantity;
-                    } else {
-                        plan[quality.name].push({ ...quality, quantity: maxQuantity });
-                    }
-                    remainingBudget -= maxQuantity * quality.price;
-                    plantQuantities[key] = (plantQuantities[key] || 0) + maxQuantity;
-                    canBuyMore = true;
+    // Fill the dynamic programming table
+    for (let i = 1; i <= allQualities.length; i++) {
+        const quality = allQualities[i - 1];
+        for (let j = 0; j <= budget; j++) {
+            dp[i][j] = dp[i - 1][j];
+            choices[i][j] = choices[i - 1][j] ? { ...choices[i - 1][j] } : {};
+
+            for (let quantity = 1; quantity <= Math.min(30, Math.floor(j / quality.price)); quantity++) {
+                const newValue = dp[i - 1][j - quantity * quality.price] + quantity * quality.price;
+                const newChoices = { ...choices[i - 1][j - quantity * quality.price] };
+                newChoices[quality.key] = (newChoices[quality.key] || 0) + quantity;
+
+                if (newValue > dp[i][j] && isGoldHighest(newChoices, quality, quantity)) {
+                    dp[i][j] = newValue;
+                    choices[i][j] = newChoices;
                 }
             }
         }
     }
 
+    // Reconstruct the optimal plan
+    const optimalChoices = choices[allQualities.length][budget];
+    const total = dp[allQualities.length][budget];
+    const remainingBudget = budget - total;
+
+    // Convert the plan to the expected format
+    const plan = {};
+    for (const [key, quantity] of Object.entries(optimalChoices)) {
+        const [name, color] = key.split('-');
+        if (!plan[name]) plan[name] = [];
+        plan[name].push({
+            color,
+            quantity,
+            price: qualityMap.get(key)
+        });
+    }
+
+    const formattedPlan = Object.entries(plan).map(([name, qualities]) => ({
+        name,
+        qualities: qualities.sort((a, b) => b.quantity - a.quantity) // Sort qualities by quantity
+    }));
+
     return {
-        plan: plan,
-        total: budget - remainingBudget,
+        plan: formattedPlan,
+        total: total,
         remainingBudget: remainingBudget
     };
 }
@@ -211,14 +238,14 @@ function displayPlanResult(result, totalBudget) {
     const qualityOrder = ['gold', 'purple', 'blue'];
     let totalRevenue = 0;
 
-    if (Object.keys(result.plan).length === 0) {
+    if (result.plan.length === 0) {
         resultHTML += '<p class="no-result">無法找到合適的種植方案。請檢查預算和植物選擇。</p>';
         resultHTML += '<p class="no-result">No suitable plan found. Please check your budget and plant selection.</p>';
     } else {
-        for (const [plantName, qualities] of Object.entries(result.plan)) {
+        for (const item of result.plan) {
             resultHTML += `
             <div class="result-item">
-                <h3 class="plant-name">${plantName}</h3>
+                <h3 class="plant-name">${item.name}</h3>
                 <table class="result-table">
                     <tr>
                         <th>品質<br>Quality</th>
@@ -229,22 +256,18 @@ function displayPlanResult(result, totalBudget) {
 
             let plantTotal = 0;
             for (const color of qualityOrder) {
-                const quality = qualities.find(q => q.color === color);
-                const basePrice = plantData[plantName].colors[color].gold_coins;
-                const priceIncrease = sharedValues.priceIncrease / 100 + 1;
-                const adjustedPrice = Math.floor(basePrice * priceIncrease);
-                const quantity = quality ? quality.quantity : 0;
-                const subtotal = quantity * adjustedPrice;
-                plantTotal += subtotal;
-                totalRevenue += subtotal;
-
-                resultHTML += `
+                const quality = item.qualities.find(q => q.color === color);
+                if (quality) {
+                    const subtotal = quality.quantity * quality.price;
+                    plantTotal += subtotal;
+                    resultHTML += `
                     <tr>
                         <td>${qualityEmojis[color]}</td>
-                        <td>${quantity}</td>
-                        <td class="currency">${formatCurrency(adjustedPrice)}</td>
+                        <td>${quality.quantity}</td>
+                        <td class="currency">${formatCurrency(quality.price)}</td>
                         <td class="currency">${formatCurrency(subtotal)}</td>
                     </tr>`;
+                }
             }
 
             resultHTML += `
@@ -254,6 +277,7 @@ function displayPlanResult(result, totalBudget) {
                     </tr>
                 </table>
             </div>`;
+            totalRevenue += plantTotal;
         }
     }
 
