@@ -140,7 +140,13 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "紅色",
+            "黃色",
+            "粉紅色",
+            "藍色",
+            "白色"
+        ]
     },
     "菱葉丁香蓼 (Fanwort)": {
         "type": "水生",
@@ -162,7 +168,13 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "紅色",
+            "黃色",
+            "粉紅色",
+            "藍色",
+            "白色"
+        ]
     },
     "睡蓮 (Water Lily)": {
         "type": "水生",
@@ -184,7 +196,13 @@
                 "gems": null
             }
         },
-        "special_colors": []
+        "special_colors": [
+            "紅色",
+            "黃色",
+            "粉紅色",
+            "藍色",
+            "白色"
+        ]
     },
     "毒牙天竺葵 (Fanged Geranium)": {
         "type": "陸生",
@@ -520,29 +538,29 @@
             }
         },
         "special_colors": []
+    },
+    "向日葵 (Sunflower)": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": null,
+                "gems": 4
+            },
+            "purple": {
+                "gold_coins": 96,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 75,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
     }
-//     "向日葵 (Sunflower)": {
-//         "type": "陸生",
-//         "colors": {
-//             "gold": {
-//                 "gold_coins": null,
-//                 "gems": null
-//             },
-//             "purple": {
-//                 "gold_coins": null,
-//                 "gems": null
-//             },
-//             "blue": {
-//                 "gold_coins": null,
-//                 "gems": null
-//             },
-//             "white": {
-//                 "gold_coins": 1,
-//                 "gems": null
-//             }
-//         },
-//         "special_colors": []
-//     },
 //     "惡人掌 (Mimbulus Mimbletonia)": {
 //         "type": "陸生",
 //         "colors": {
