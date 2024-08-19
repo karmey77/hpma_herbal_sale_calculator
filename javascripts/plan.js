@@ -108,7 +108,7 @@ function calculatePlan() {
             }
 
             if (plants.length === 0) {
-                throw new Error('請選擇至少一種植物');
+                throw new Error('請選擇至少一種植物。 Please select at least one plant.');
             }
 
             console.log('Plants:', plants);
