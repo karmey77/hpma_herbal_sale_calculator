@@ -97,20 +97,28 @@ function updatePlantQuantities(index) {
     const selectedPlant = plantSelect.value;
 
     if (selectedPlant) {
-        const isAquatic = plantData[selectedPlant].type === "水生";
-        const hasSpecialColors = plantData[selectedPlant].special_colors.length > 0;
+        const plantType = plantData[selectedPlant].type;
+        const hasRareColors = plantData[selectedPlant].special_colors.length > 0;
         const hasGemPricing = Object.values(plantData[selectedPlant].colors).some(color => color.gems !== null);
 
         let html = '';
         
-        // 添加寶石計價提示
         if (hasGemPricing) {
             html += '<div class="gem-pricing-warning">⚠️<br>此植物含有寶石計價等級，<br>該等級不予計算<br>Gems pricing is not calculated</div>';
         }
 
+        if (hasRareColors) {
+            html += `
+            <div class="rare-color-warning">
+                稀有色定義：該植物顏色區段最後的兩個顏色<br>
+                Rare colors are defined as the last two colors in this plant's color range
+            </div>`;
+        }
+
+
         html += '<table class="quality-table"><tr><th>LV.</th><th>數量 Qty.</th>';
-        if (isAquatic && hasSpecialColors) {
-            html += '<th>特殊色數量 Spec. Col.</th>';
+        if (hasRareColors) {
+            html += '<th>稀有色數量 Rare Col.</th>';
         }
         html += '</tr>';
 
@@ -128,8 +136,8 @@ function updatePlantQuantities(index) {
                     <td><input type="number" id="${quality.name}${index}" value="0" min="0" 
                         ${isGemPricing ? 'disabled' : ''} 
                         class="${isGemPricing ? 'gem-pricing-input' : ''}"></td>`;
-                if (isAquatic && hasSpecialColors) {
-                    html += `<td><input type="number" id="${quality.name}Special${index}" value="0" min="0" 
+                if (hasRareColors) {
+                    html += `<td><input type="number" id="${quality.name}Rare${index}" value="0" min="0" 
                         ${isGemPricing ? 'disabled' : ''} 
                         class="${isGemPricing ? 'gem-pricing-input' : ''}"></td>`;
                 }
@@ -161,8 +169,7 @@ function calculate() {
                         qualities: []
                     };
 
-                    const isAquatic = plantData[plantName].type === "水生";
-                    const hasSpecialColors = plantData[plantName].special_colors.length > 0;
+                    const hasRareColors = plantData[plantName].special_colors.length > 0;
 
                     for (const color of ['gold', 'purple', 'blue']) {
                         const colorData = plantData[plantName].colors[color];
@@ -175,14 +182,14 @@ function calculate() {
                             const price = Math.floor(basePrice * priceIncrease);
                             plant.qualities.push({ color, quantity, price });
 
-                            if (isAquatic && hasSpecialColors) {
-                                let specialQuantity = 0;
+                            if (hasRareColors) {
+                                let rareQuantity = 0;
                                 if (colorData.gold_coins !== null) {
-                                    specialQuantity = parseInt(document.getElementById(`${color}Special${i}`).value) || 0;
+                                    rareQuantity = parseInt(document.getElementById(`${color}Rare${i}`).value) || 0;
                                 }
-                                const baseSpecialPrice = basePrice * 1.1; // 10% bonus for special colors
-                                const specialPrice = Math.ceil(baseSpecialPrice * priceIncrease);
-                                plant.qualities.push({ color: `${color}Special`, quantity: specialQuantity, price: specialPrice });
+                                const baseRarePrice = basePrice * 1.1; // 10% bonus for rare colors
+                                const rarePrice = Math.ceil(baseRarePrice * priceIncrease);
+                                plant.qualities.push({ color: `${color}Rare`, quantity: rareQuantity, price: rarePrice });
                             }
                         }
                     }
@@ -342,11 +349,11 @@ function displayResult(result, totalBudget) {
             if (quality.quantity > 0) {
                 const subtotal = quality.quantity * quality.price;
                 plantTotal += subtotal;
-                const emoji = qualityEmojis[quality.color.replace('Special', '')] || '';
-                const isSpecial = quality.color.includes('Special');
+                const emoji = qualityEmojis[quality.color.replace('Rare', '')] || '';
+                const isRare = quality.color.includes('Rare');
                 resultHTML += `
                 <tr>
-                    <td>${emoji} ${isSpecial ? '<br>特殊色 / Special' : ''}</td>
+                    <td>${emoji} ${isRare ? '<br>稀有色 / Rare' : ''}</td>
                     <td>${quality.quantity}</td>
                     <td class="currency">${formatCurrency(quality.price)}</td>
                     <td class="currency">${formatCurrency(subtotal)}</td>
@@ -376,6 +383,7 @@ function displayResult(result, totalBudget) {
 
     resultDiv.innerHTML = resultHTML;
 }
+
 // 初始化頁面
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('calculateButton').addEventListener('click', calculate);

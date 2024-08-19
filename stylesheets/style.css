@@ -615,3 +615,14 @@ select:empty {
     font-size: 0.9em;
     text-align: center;
 }
+
+.rare-color-warning {
+    background-color: #d5e8fc;
+    border: 1px solid #a8cbf0;
+    color: #0d68c9;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-align: center;
+}
