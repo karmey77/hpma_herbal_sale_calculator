@@ -178,8 +178,8 @@ function calculate() {
                             if (colorData.gold_coins !== null) {
                                 quantity = parseInt(document.getElementById(`${color}${i}`).value) || 0;
                             }
-                            const basePrice = colorData.gold_coins || 0;
-                            const price = Math.floor(basePrice * priceIncrease);
+                            const originalPrice = colorData.gold_coins || 0;
+                            const price = Math.ceil(originalPrice * priceIncrease);
                             plant.qualities.push({ color, quantity, price });
 
                             if (hasRareColors) {
@@ -187,8 +187,8 @@ function calculate() {
                                 if (colorData.gold_coins !== null) {
                                     rareQuantity = parseInt(document.getElementById(`${color}Rare${i}`).value) || 0;
                                 }
-                                const baseRarePrice = basePrice * 1.1; // 10% bonus for rare colors
-                                const rarePrice = Math.ceil(baseRarePrice * priceIncrease);
+                                const rareBonus = Math.ceil(originalPrice * 0.1);
+                                const rarePrice = Math.ceil((originalPrice + rareBonus) * priceIncrease);
                                 plant.qualities.push({ color: `${color}Rare`, quantity: rareQuantity, price: rarePrice });
                             }
                         }
