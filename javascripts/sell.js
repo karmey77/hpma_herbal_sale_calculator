@@ -111,12 +111,12 @@ function updatePlantQuantities(index) {
             html += `
             <div class="rare-color-warning">
                 稀有色定義：該植物顏色區段最後的兩個顏色<br>
-                Rare colors are defined as the last two colors in this plant's color range
+                Rare colors are defined as the last two colors in this plant's color range.
             </div>`;
         }
 
 
-        html += '<table class="quality-table"><tr><th>LV.</th><th>數量 Qty.</th>';
+        html += '<table class="quality-table"><tr><th>LV.</th><th>普色數量 Normal Col.</th>';
         if (hasRareColors) {
             html += '<th>稀有色數量 Rare Col.</th>';
         }
