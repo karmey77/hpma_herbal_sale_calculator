@@ -566,27 +566,27 @@
             }
         },
         "special_colors": []
+    },
+    "惡人掌 (Mimbulus Mimbletonia)": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 62,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 1,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 1,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
     }
-//     "惡人掌 (Mimbulus Mimbletonia)": {
-//         "type": "陸生",
-//         "colors": {
-//             "gold": {
-//                 "gold_coins": null,
-//                 "gems": null
-//             },
-//             "purple": {
-//                 "gold_coins": null,
-//                 "gems": null
-//             },
-//             "blue": {
-//                 "gold_coins": null,
-//                 "gems": null
-//             },
-//             "white": {
-//                 "gold_coins": 1,
-//                 "gems": null
-//             }
-//         },
-//         "special_colors": []
-//     }
 }
