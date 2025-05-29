@@ -588,5 +588,27 @@
             }
         },
         "special_colors": []
+    },
+    "龍舌蘭香草 (Agave)": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 25,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 23,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 18,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
     }
 }
