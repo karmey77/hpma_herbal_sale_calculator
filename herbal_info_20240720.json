@@ -565,7 +565,9 @@
                 "gems": null
             }
         },
-        "special_colors": ["白色"]
+        "special_colors": [
+            "白色"
+        ]
     },
     "惡人掌 (Mimbulus Mimbletonia)": {
         "type": "陸生",
@@ -602,6 +604,94 @@
             },
             "blue": {
                 "gold_coins": 18,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "鼠尾草 (Sage)": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 56,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 46,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 41,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "幽蘭月桂 (Laurel)": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 34,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": 31,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": 24,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "火焰肉桂 (Cinnamon)": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 36,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "white": {
+                "gold_coins": 1,
+                "gems": null
+            }
+        },
+        "special_colors": []
+    },
+    "迷迭香 (Rosemary)": {
+        "type": "陸生",
+        "colors": {
+            "gold": {
+                "gold_coins": 56,
+                "gems": null
+            },
+            "purple": {
+                "gold_coins": null,
+                "gems": null
+            },
+            "blue": {
+                "gold_coins": null,
                 "gems": null
             },
             "white": {
